@@ -1,6 +1,6 @@
 import { redirectToAuthCodeFlow, getAccessToken } from "./authCodeWithPkce";
 
-const clientId = "client-id";
+const clientId = "";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
