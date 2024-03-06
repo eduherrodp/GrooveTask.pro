@@ -20,7 +20,8 @@ async function fetchProfile(code: string): Promise<UserProfile> {
     return await result.json();
 }
 
-function populateUI(profile: UserProfile) {
+// This function is to show and replace data in index.html
+function populateUI(profile: UserProfile) { 
     document.getElementById("displayName")!.innerText = profile.display_name;
     document.getElementById("avatar")!.setAttribute("src", profile.images[0].url)
     document.getElementById("id")!.innerText = profile.id;
