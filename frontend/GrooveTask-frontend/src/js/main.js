@@ -5,17 +5,30 @@ import '../scss/styles.scss';
 import * as bootstrap from 'bootstrap';
 import lottie from 'lottie-web';
 
-// Create a function when scrollbutton is clicked scroll to the next section (just the first section)
-document.getElementById('scrollButton-features').addEventListener('click', function() {
-    document.getElementById('section-1').scrollIntoView({behavior: "smooth"});
-});
-document.getElementById('scrollButton-pricing').addEventListener('click', function() {
-    document.getElementById('section-1').scrollIntoView({behavior: "smooth"});
-});
+// Verifica si la página actual es index.html
+if (window.location.pathname === '/index.html') {
+    // Comprueba si los elementos existen antes de agregar los event listeners
+    var scrollButtonFeatures = document.getElementById('scrollButton-features');
+    var scrollButtonPricing = document.getElementById('scrollButton-pricing');
+    var section1 = document.getElementById('section-1');
+    var section2 = document.getElementById('section-2');
 
-document.getElementById('scrollButton-pricing').addEventListener('click', function() {
-    document.getElementById('section-2').scrollIntoView({behavior: "smooth"});
-});
+    if (scrollButtonFeatures && section1) {
+        scrollButtonFeatures.addEventListener('click', function () {
+            section1.scrollIntoView({ behavior: "smooth" });
+        });
+    }
+
+    if (scrollButtonPricing && section2) {
+        scrollButtonPricing.addEventListener('click', function () {
+            section2.scrollIntoView({ behavior: "smooth" });
+        });
+    }
+} else {
+    // Si no estás en la página index.html, el script no hace nada
+}
+
+
 
 // Create a function to render lottie animation
 function renderLottieAnimation() {
@@ -44,6 +57,13 @@ function renderLottieAnimation() {
         loop: true,
         autoplay: true,
         path: '../svg3.json'
+    });
+    lottie.loadAnimation({
+        container: document.getElementById('lottie4'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '../svg4.json'
     });
 }
 
