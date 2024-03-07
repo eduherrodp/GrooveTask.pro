@@ -1,0 +1,115 @@
+@import "bootstrap/scss/bootstrap";
+
+// Add svg background to the first container of the page
+.all {
+    background-image: url("../background.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.cover-container {
+    max-width: 80em;
+}
+
+.fs-1 {
+    font-size: 4rem !important;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(0) scale(1.1);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate__animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.fs-1 {
+    animation-name: fadeInUp;
+}
+
+.lead {
+    animation-name: fadeInUp;
+    animation-delay: 0.3s;
+}
+
+.btn {
+    animation-name: fadeIn;
+    animation-delay: 0.6s;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.section p {
+    font-size: 1.2rem;
+}
+
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 16px;
+    text-align: center;
+}
+
+i.fa-arrow-down::hover {
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+    box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+    transition: all 0.4s ease 0s;
+}
+
+// Margin left and right 150
+
+.fixed-header {
+    margin: 0 150px;
+}
+
+.first-button {
+    background-color: #fa7840 !important;
+}
+
+.second-button {
+    background-color: rgb(171, 241, 255) !important;
+}
+
+.tag {
+    background-color: #fa7840;
+    cursor: default;
+}
+
+.container-pricing {
+    max-width: 960px;
+}
+
+.pricing-header {
+    max-width: 700px;
+}

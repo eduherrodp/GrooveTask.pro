@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap w/ Vite</title>
+  <script type="module" src="./js/main.js"></script>
+  <script src="https://kit.fontawesome.com/7db41e77f2.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <header
+      class="fixed-header d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-5 mb-1" id="section-0">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <a href="/" class="link-body-emphasis text-decoration-none align-items-center">
+          <img src="logo.png" alt="GrooveTask" width="150">
+        </a>
+      </div>
+
+      <ul class="nav col-15 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-3 text-dark">Home</a></li>
+        <li><a href="#section-1" class="nav-link px-3 text-dark">Features</a></li>
+        <li><a href="#section-2" class="nav-link px-3 text-dark">Pricing</a></li>
+        <li><a href="#" class="nav-link px-3 text-dark">FAQs</a></li>
+        <li><a href="#" class="nav-link px-3 text-dark">About</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary">Get Started</button>
+      </div>
+    </header>
+  </div>
+
+  <div class="content">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <div class="container--xxl text-center">
+        <h1 class="fs-1 animate__animated mb-5 mt-5">OPTIMIZE YOUR WORKFLOW WITH GROOVETASK</h1>
+        <p class="lead animate__animated mb-5"><strong>GrooveTask</strong> is the all-in-one platform designed to help
+          you manage your tasks effectively while enjoying your favorite music. With GrooveTask, you can create, assign,
+          and track tasks seamlessly, all while listening to your favorite tunes. Say goodbye to the hassle of task
+          management and hello to productivity and enjoyment with GrooveTask.</p>
+
+        </p>
+        <p class="lead animate__animated">
+          <button type="button" class="btn btn-primary btn-lg shadow">Learn More</button>
+          <button type="button" class="btn btn-outline-primary btn-lg shadow">Get Started</button>
+        </p>
+        <p class="lead animate__animated mt-5">
+          <button type="button" class="btn btn-primary btn-circle sticky-bottom shadow-lg" id="scrollButton-features">
+            <i class="fa-solid fa-arrow-down fa-bounce fa-lg"></i>
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- 3 Sections to Task Management, Music Player, Collaboration, when left side show the functionability and a litte description, and right side div whit id="lottie"-->
+  <div class="container">
+    <!-- First section -->
+    <div class="row" id="section-1">
+      <div class="col-md-6 d-flex flex-column justify-content-center text-center">
+        <h2>Task Management</h2>
+        <p>With GrooveTask, you can streamline your workflow, stay organized, and ensure nothing falls through the
+          cracks. Say goodbye to scattered to-do lists and hello to a centralized platform that empowers you to
+          prioritize tasks, set deadlines, and monitor progress all in one place.</p>
+        <div class="d-flex flex-row justify-content-center align-items-center fs-4">
+          <div class="px-5 fw-light"><strong class="fw-bold">+3</strong><br>years</div>
+          <div class="px-5 fw-light"><strong class="fw-bold">+10,000</strong><br>tasks</div>
+          <div class="px-5 fw-light"><strong class="fw-bold">+500</strong><br>users</div>
+        </div>
+      </div>
+      <div class="col-md-6 align-items-center">
+        <div id="lottie" style="width: 85%;margin: auto;"></div>
+      </div>
+    </div>
+    <!-- Second section -->
+    <div class="row flex-row-reverse bg-dark bg--black-gradient text-bg-dark rounded-5 bg-success mb-5 shadow-lg">
+      <div class="col-md-6 d-flex flex-column justify-content-center text-center"
+        style="background: url('./blur.svg') no-repeat center/cover;">
+        <h2>Music Player</h2>
+        <p>Enjoy your favorite music while working. GrooveTask comes with a built-in music player that allows you to
+          listen to your favorite tunes without leaving the app.</p>
+      </div>
+      <div class="col-md-6 justify-content-center align-items-center mt-3 p-5">
+        <div id="lottie2" style="width: 90%;"></div>
+      </div>
+    </div>
+
+    <!-- Third section -->
+    <div class="row mt-3 mb-5 p-5">
+      <div class="col-md-6">
+        <div id="lottie3" style="width: 60%;"></div>
+      </div>
+      <div class="col-md-6 d-flex flex-column justify-content-center text-center">
+        <h2>Collaboration</h2>
+        <p>Effortlessly collaborate with your team in real-time using <strong>GrooveTask</strong>. With GrooveTask, you
+          can easily share tasks, files, and messages with your team members, fostering seamless communication and
+          enhancing productivity across projects.</p>
+        <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+          <p class="px-5 fw-light tag mx-auto text-white shadow-lg rounded-5">Teamwork</p>
+          <p class="px-5 fw-light tag mx-auto text-white shadow-lg rounded-5">Communication</p>
+          <p class="px-5 fw-light tag mx-auto text-white shadow-lg rounded-5">Coordination</p>
+        </div>
+        <p class="lead animate__animated mt-3 ">
+          <button type="button" class="btn btn-primary sticky-bottom shadow-lg" id="scrollButton">
+            <i class="fa-lg px-5" id="scrollButton-pricing">Pricing</i>
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-md-5 container-pricing" id="section-2" style="margin: auto !important;">
+    <header class="mb-3">
+      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal text-body-emphasis fs-2">Pricing</h1>
+        <p class="fs-5 text-body-secondary">Discover the perfect solution for your task management requirements with our range of adaptable pricing plans. Our offerings are meticulously crafted to suit your diverse task management needs, ensuring seamless organization and enhanced productivity. Dive into our flexible pricing options and unlock the power to streamline your workflow effortlessly.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mx-auto">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">Free</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title mt-3">$0<small class="text-body-secondary fw-light">/mo</small>
+              </h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li class="mb-3">Limited features</li>
+                <li class="mb-3">Single user access</li>
+                <li class="mb-3">Basic task management</li>
+                <li class="mb-3">Email support</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-outline-primary mt-3 mb-4">Sign up for free</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">Pro</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title mt-3">$15<small class="text-body-secondary fw-light">/mo</small>
+              </h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li class="mb-3">Unlimited features</li>
+                <li class="mb-3">Multi-user access</li>
+                <li class="mb-3">Advanced task management</li>
+                <li class="mb-3">Priority email support</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-primary mt-3 mb-4">Get started</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm border-primary">
+            <div class="card-header py-3 text-bg-primary border-primary">
+              <h4 class="my-0 fw-normal">Enterprise</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title mt-3">$29<small class="text-body-secondary fw-light">/mo</small>
+              </h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li class="mb-3">Customizable features</li>
+                <li class="mb-3">Team collaboration</li>
+                <li class="mb-3">Enterprise-level task management</li>
+                <li class="mb-3">24/7 phone and email support</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-primary mt-3 mb-4">Contact us</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#section-0" class="nav-link px-2 text-body-secondary">Home</a></li>
+        <li class="nav-item"><a href="#section-1" class="nav-link px-2 text-body-secondary">Features</a></li>
+        <li class="nav-item"><a href="#section-2" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+      </ul>
+      <p class="text-center text-body-secondary">&copy; 2024 Company, Inc</p>
+    </footer>
+  </div>
+</body>
+
+</html>
