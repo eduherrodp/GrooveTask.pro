@@ -4,7 +4,8 @@
     "google-auth-library": "^9.6.3",
     "googleapis": "^133.0.0",
     "open": "^10.0.4",
-    "opn": "^6.0.0"
+    "opn": "^6.0.0",
+    "server-destroy": "^1.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.9",

@@ -9,19 +9,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+// services/googleTasksService.js
 var _require = require('googleapis'),
   google = _require.google;
+var _require2 = require('./googleAuth'),
+  getAuthenticatedClient = _require2.getAuthenticatedClient;
+console.log(getAuthenticatedClient);
 
 /**
  * Servicefor interacting with Google Tasks API
  * @module services/googleTasksService
  */
-
-// Authentication configuration
-var auth = new google.auth.GoogleAuth({
-  keyFile: 'credentials.json',
-  scopes: ['https://www.googleapis.com/auth/tasks', 'https://www.googleapis.com/auth/tasks.readonly']
-});
 
 /**
  * GoogleTasksService class for interacting with Google Tasks API
@@ -39,50 +37,65 @@ var GoogleTasksService = /*#__PURE__*/function () {
      */
     function () {
       var _getTaskLists = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var tasks, taskLists;
+        var authorizeUrl;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              tasks = google.tasks({
-                version: 'v1',
-                auth: auth
-              });
+              _context.prev = 0;
               _context.next = 3;
-              return tasks.tasklists.list();
+              return googleAuth.main();
             case 3:
-              taskLists = _context.sent;
-              return _context.abrupt("return", taskLists.data.items);
-            case 5:
+              authorizeUrl = _context.sent;
+              console.log('Authorization URL:', authorizeUrl);
+              // Aquí debes enviar el authorizeUrl a la interfaz de usuario o manejarlo según sea necesario
+              _context.next = 11;
+              break;
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              console.error('Error getting task lists:', _context.t0);
+              throw _context.t0;
+            case 11:
             case "end":
               return _context.stop();
           }
-        }, _callee);
+        }, _callee, null, [[0, 7]]);
       }));
       function getTaskLists() {
         return _getTaskLists.apply(this, arguments);
       }
       return getTaskLists;
-    }())
+    }()
+    /**
+     * Create a new task list.
+     * @param {Object} taskList - The task list to create.
+     * @returns {Promise<object>} The created task list.
+     */
+    )
   }, {
     key: "createTaskList",
-    value: function () {
+    value: (function () {
       var _createTaskList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(taskList) {
-        var tasks, taskListCreated;
+        var authClient, tasks, newTaskList;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
+              _context2.next = 2;
+              return getAuthenticatedClient();
+            case 2:
+              authClient = _context2.sent;
               tasks = google.tasks({
                 version: 'v1',
-                auth: auth
+                auth: authClient
               });
-              _context2.next = 3;
+              _context2.next = 6;
               return tasks.tasklists.insert({
                 requestBody: taskList
               });
-            case 3:
-              taskListCreated = _context2.sent;
-              return _context2.abrupt("return", taskListCreated.data);
-            case 5:
+            case 6:
+              newTaskList = _context2.sent;
+              return _context2.abrupt("return", newTaskList.data);
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -93,27 +106,38 @@ var GoogleTasksService = /*#__PURE__*/function () {
       }
       return createTaskList;
     }()
+    /**
+     * Update a task list.
+     * @param {string} id - The ID of the task list to update.
+     * @param {Object} taskList - The updated task list.
+     * @returns {Promise<object>} The updated task list.
+     */
+    )
   }, {
     key: "updateTaskList",
-    value: function () {
+    value: (function () {
       var _updateTaskList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(id, taskList) {
-        var tasks, taskListUpdated;
+        var authClient, tasks, updatedTaskList;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
+              _context3.next = 2;
+              return getAuthenticatedClient();
+            case 2:
+              authClient = _context3.sent;
               tasks = google.tasks({
                 version: 'v1',
-                auth: auth
+                auth: authClient
               });
-              _context3.next = 3;
+              _context3.next = 6;
               return tasks.tasklists.update({
-                tasklist: id,
+                taskList: id,
                 requestBody: taskList
               });
-            case 3:
-              taskListUpdated = _context3.sent;
-              return _context3.abrupt("return", taskListUpdated.data);
-            case 5:
+            case 6:
+              updatedTaskList = _context3.sent;
+              return _context3.abrupt("return", updatedTaskList.data);
+            case 8:
             case "end":
               return _context3.stop();
           }
@@ -124,23 +148,32 @@ var GoogleTasksService = /*#__PURE__*/function () {
       }
       return updateTaskList;
     }()
+    /**
+     * Delete a task list.
+     * @param {string} id - The ID of the task list to delete.
+     */
+    )
   }, {
     key: "deleteTaskList",
-    value: function () {
+    value: (function () {
       var _deleteTaskList = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(id) {
-        var tasks;
+        var authClient, tasks;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
+              _context4.next = 2;
+              return getAuthenticatedClient();
+            case 2:
+              authClient = _context4.sent;
               tasks = google.tasks({
                 version: 'v1',
-                auth: auth
+                auth: authClient
               });
-              _context4.next = 3;
+              _context4.next = 6;
               return tasks.tasklists["delete"]({
-                tasklist: id
+                taskList: id
               });
-            case 3:
+            case 6:
             case "end":
               return _context4.stop();
           }
@@ -151,26 +184,36 @@ var GoogleTasksService = /*#__PURE__*/function () {
       }
       return deleteTaskList;
     }()
+    /**
+     * Get all tasks in a task list.
+     * @param {string} taskListId - The ID of the task list.
+     * @returns {Promise<object[]>} An array of tasks.
+     */
+    )
   }, {
     key: "getTasks",
-    value: function () {
+    value: (function () {
       var _getTasks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(taskListId) {
-        var tasks, tasksList;
+        var authClient, tasks, tasksList;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
+              _context5.next = 2;
+              return getAuthenticatedClient();
+            case 2:
+              authClient = _context5.sent;
               tasks = google.tasks({
                 version: 'v1',
-                auth: auth
+                auth: authClient
               });
-              _context5.next = 3;
+              _context5.next = 6;
               return tasks.tasks.list({
-                tasklist: taskListId
+                taskList: taskListId
               });
-            case 3:
+            case 6:
               tasksList = _context5.sent;
               return _context5.abrupt("return", tasksList.data.items);
-            case 5:
+            case 8:
             case "end":
               return _context5.stop();
           }
@@ -181,27 +224,38 @@ var GoogleTasksService = /*#__PURE__*/function () {
       }
       return getTasks;
     }()
+    /**
+     * Create a new task in a task list.
+     * @param {string} taskListId - The ID of the task list.
+     * @param {Object} task - The task to create.
+     * @returns {Promise<object>} The created task.
+     */
+    )
   }, {
     key: "createTask",
-    value: function () {
+    value: (function () {
       var _createTask = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(taskListId, task) {
-        var tasks, taskCreated;
+        var authClient, tasks, newTask;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
+              _context6.next = 2;
+              return getAuthenticatedClient();
+            case 2:
+              authClient = _context6.sent;
               tasks = google.tasks({
                 version: 'v1',
-                auth: auth
+                auth: authClient
               });
-              _context6.next = 3;
+              _context6.next = 6;
               return tasks.tasks.insert({
-                tasklist: taskListId,
+                taskList: taskListId,
                 requestBody: task
               });
-            case 3:
-              taskCreated = _context6.sent;
-              return _context6.abrupt("return", taskCreated.data);
-            case 5:
+            case 6:
+              newTask = _context6.sent;
+              return _context6.abrupt("return", newTask.data);
+            case 8:
             case "end":
               return _context6.stop();
           }
@@ -212,28 +266,40 @@ var GoogleTasksService = /*#__PURE__*/function () {
       }
       return createTask;
     }()
+    /**
+     * Update a task in a task list.
+     * @param {string} taskListId - The ID of the task list.
+     * @param {string} taskId - The ID of the task to update.
+     * @param {Object} task - The updated task.
+     * @returns {Promise<object>} The updated task.
+     */
+    )
   }, {
     key: "updateTask",
-    value: function () {
+    value: (function () {
       var _updateTask = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(taskListId, taskId, task) {
-        var tasks, taskUpdated;
+        var authClient, tasks, updatedTask;
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
+              _context7.next = 2;
+              return getAuthenticatedClient();
+            case 2:
+              authClient = _context7.sent;
               tasks = google.tasks({
                 version: 'v1',
-                auth: auth
+                auth: authClient
               });
-              _context7.next = 3;
+              _context7.next = 6;
               return tasks.tasks.update({
-                tasklist: taskListId,
+                taskList: taskListId,
                 task: taskId,
                 requestBody: task
               });
-            case 3:
-              taskUpdated = _context7.sent;
-              return _context7.abrupt("return", taskUpdated.data);
-            case 5:
+            case 6:
+              updatedTask = _context7.sent;
+              return _context7.abrupt("return", updatedTask.data);
+            case 8:
             case "end":
               return _context7.stop();
           }
@@ -244,24 +310,34 @@ var GoogleTasksService = /*#__PURE__*/function () {
       }
       return updateTask;
     }()
+    /**
+     * Delete a task from a task list.
+     * @param {string} taskListId - The ID of the task list.
+     * @param {string} taskId - The ID of the task to delete.
+     */
+    )
   }, {
     key: "deleteTask",
-    value: function () {
+    value: (function () {
       var _deleteTask = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(taskListId, taskId) {
-        var tasks;
+        var authClient, tasks;
         return _regeneratorRuntime().wrap(function _callee8$(_context8) {
           while (1) switch (_context8.prev = _context8.next) {
             case 0:
+              _context8.next = 2;
+              return getAuthenticatedClient();
+            case 2:
+              authClient = _context8.sent;
               tasks = google.tasks({
                 version: 'v1',
-                auth: auth
+                auth: authClient
               });
-              _context8.next = 3;
+              _context8.next = 6;
               return tasks.tasks["delete"]({
-                tasklist: taskListId,
+                taskList: taskListId,
                 task: taskId
               });
-            case 3:
+            case 6:
             case "end":
               return _context8.stop();
           }
@@ -271,94 +347,7 @@ var GoogleTasksService = /*#__PURE__*/function () {
         return _deleteTask.apply(this, arguments);
       }
       return deleteTask;
-    }()
-  }, {
-    key: "clearCompletedTasks",
-    value: function () {
-      var _clearCompletedTasks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(taskListId) {
-        var tasks;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
-            case 0:
-              tasks = google.tasks({
-                version: 'v1',
-                auth: auth
-              });
-              _context9.next = 3;
-              return tasks.tasks.clear({
-                tasklist: taskListId
-              });
-            case 3:
-            case "end":
-              return _context9.stop();
-          }
-        }, _callee9);
-      }));
-      function clearCompletedTasks(_x13) {
-        return _clearCompletedTasks.apply(this, arguments);
-      }
-      return clearCompletedTasks;
-    }()
-  }, {
-    key: "moveTask",
-    value: function () {
-      var _moveTask = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(taskListId, taskId, task) {
-        var tasks, taskMoved;
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
-            case 0:
-              tasks = google.tasks({
-                version: 'v1',
-                auth: auth
-              });
-              taskMoved = tasks.tasks.move({
-                tasklist: taskListId,
-                task: taskId,
-                requestBody: task
-              });
-              return _context10.abrupt("return", taskMoved.data);
-            case 3:
-            case "end":
-              return _context10.stop();
-          }
-        }, _callee10);
-      }));
-      function moveTask(_x14, _x15, _x16) {
-        return _moveTask.apply(this, arguments);
-      }
-      return moveTask;
-    }()
-  }, {
-    key: "getTask",
-    value: function () {
-      var _getTask = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(taskListId, taskId) {
-        var tasks, task;
-        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
-            case 0:
-              tasks = google.tasks({
-                version: 'v1',
-                auth: auth
-              });
-              _context11.next = 3;
-              return tasks.tasks.get({
-                tasklist: taskListId,
-                task: taskId
-              });
-            case 3:
-              task = _context11.sent;
-              return _context11.abrupt("return", task.data);
-            case 5:
-            case "end":
-              return _context11.stop();
-          }
-        }, _callee11);
-      }));
-      function getTask(_x17, _x18) {
-        return _getTask.apply(this, arguments);
-      }
-      return getTask;
-    }()
+    }())
   }]);
   return GoogleTasksService;
 }();
