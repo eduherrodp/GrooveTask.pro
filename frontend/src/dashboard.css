@@ -1,0 +1,71 @@
+.container {  display: grid;
+    grid-template-columns: 1fr 0.9fr 1.1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "day-information calendar tasks"
+      "notifications charts tasks"
+      "Spotify charts tasks";
+  }
+  
+  .day-information {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "hour-date hour-date hour-date"
+      "weater weater spotify-status"
+      ". . whatsapp-status";
+    grid-area: day-information;
+  }
+  
+  .hour-date { grid-area: hour-date; }
+  
+  .spotify-status { grid-area: spotify-status; }
+  
+  .whatsapp-status { grid-area: whatsapp-status; }
+  
+  .weater { grid-area: weater; }
+  
+  .tasks {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.3fr 1.2fr 1.5fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "tasks-header tasks-header tasks-header"
+      "tasks-today tasks-today tasks-today"
+      "tasks-incoming tasks-incoming tasks-incoming";
+    grid-area: tasks;
+  }
+  
+  .tasks-header { grid-area: tasks-header; }
+  
+  .tasks-today { grid-area: tasks-today; }
+  
+  .tasks-incoming { grid-area: tasks-incoming; }
+  
+  .notifications { grid-area: notifications; }
+  
+  .Spotify { grid-area: Spotify; }
+  
+  .calendar { grid-area: calendar; }
+  
+  .charts {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "charts-tasks charts-tasks charts-tasks"
+      "charts-tasks charts-tasks charts-tasks"
+      "charts-info charts-info charts-info";
+    grid-area: charts;
+  }
+  
+  .charts-tasks { grid-area: charts-tasks; }
+  
+  .charts-info { grid-area: charts-info; }
+  

@@ -6,7 +6,7 @@ import * as bootstrap from 'bootstrap';
 import lottie from 'lottie-web';
 
 // Verifica si la página actual es index.html
-if (window.location.pathname === '/index.html') {
+if (document.getElementsByTagName('title')[0].innerHTML === 'GrooveTask') {
     // Comprueba si los elementos existen antes de agregar los event listeners
     var scrollButtonFeatures = document.getElementById('scrollButton-features');
     var scrollButtonPricing = document.getElementById('scrollButton-pricing');
@@ -28,7 +28,10 @@ if (window.location.pathname === '/index.html') {
     // Si no estás en la página index.html, el script no hace nada
 }
 
-
+var getStarted = document.getElementById('getStarted');
+getStarted.addEventListener('click', function () {
+    window.location.href = '/signup.html';
+});
 
 // Create a function to render lottie animation
 function renderLottieAnimation() {

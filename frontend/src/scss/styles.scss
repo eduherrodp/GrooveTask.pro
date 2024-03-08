@@ -1,13 +1,6 @@
 @import "bootstrap/scss/bootstrap";
 
 // Add svg background to the first container of the page
-.all {
-    background-image: url("../background.svg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-}
 
 .cover-container {
     max-width: 80em;
@@ -112,4 +105,38 @@ i.fa-arrow-down::hover {
 
 .pricing-header {
     max-width: 700px;
+}
+
+.fade-in {
+    animation: fadeInAnimation ease 0.6s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.slide-left {
+    animation: slideLeftAnimation ease 0.6s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideLeftAnimation {
+    0% {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
