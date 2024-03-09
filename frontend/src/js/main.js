@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
      AOS.init({
         debounceDelay: 50, // The delay on debounce used while resizing window (in ms)
         offset: 100, // Offset (in px) from the original trigger point
-        duration: 1800, // Duration of animation (in ms)
+        duration: 1000, // Duration of animation (in ms)
         easing: 'ease', // Easing type
         once: false, 
         mirror: true,
