@@ -1,24 +1,31 @@
-// app.js
-const express = require('express');
-const { json } = require('express');
-const TaskRoutes = require('./routes/taskRoutes');
-const app = express();
+const { google } = require('googleapis');
 
 /**
- * Configure the Express application with middlewares and routes.
- * @module app
+ * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
+ * from the client_secret.json file. To get these credentials for your application, visit
+ * https://console.cloud.google.com/apis/credentials.
  */
+const oauth2Client = new google.auth.OAuth2(
+    '48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com',
+    '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',
+    'https://api.edhrrz.pro'
+);
 
-// Middleware to parse incoming request bodies as JSON
-app.use(json());
+// Access scopes for read-only Drive activity.
+const scopes = [
+    'https://www.googleapis.com/auth/tasks.readonly',
+    'https://www.googleapis.com/auth/tasks'
+];
 
-// Use the routes defined in taskRoutes for requests starting with /tasks
-app.use('/tasks', TaskRoutes);
-
-// Define the port on which the server will listen for incoming requests
-const PORT = process.env.PORT || 3000;
-
-// Start the server and begin listening for incoming requests on the specified port
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// Generate a url that asks permissions for Tasks scope.
+const authorizationUrl = oauth2Client.generateAuthUrl({
+    // 'online' (default) or 'offline' (gets refresh_token)
+    access_type: 'offline',
+    /** Pass in the scopes array defined above.
+      * Alternatively, if only one scope is needed, you can pass a scope URL as a string */
+    scope: scopes,
+    // Enable incremental authorization. Recommended as a best practice.
+    include_granted_scopes: true
 });
+
+console.log(authorizationUrl);
