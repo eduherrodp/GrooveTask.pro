@@ -1,74 +1,66 @@
-// Import our custom CSS
-import '../scss/styles.scss';
-
-// Import all of Bootstrap's JS | can also import JavaScript plugins individually 
-import * as bootstrap from 'bootstrap';
 import lottie from 'lottie-web';
+import AOS from 'aos';
+document.addEventListener('DOMContentLoaded', () => {
+     // Initialize AOS for scroll animations
+     AOS.init({
+        debounceDelay: 50, // The delay on debounce used while resizing window (in ms)
+        offset: 100, // Offset (in px) from the original trigger point
+        duration: 1800, // Duration of animation (in ms)
+        easing: 'ease', // Easing type
+        once: false, 
+        mirror: true,
+        delay: 50,
+    });
 
-// Verifica si la página actual es index.html
-if (document.getElementsByTagName('title')[0].innerHTML === 'GrooveTask') {
-    // Comprueba si los elementos existen antes de agregar los event listeners
-    var scrollButtonFeatures = document.getElementById('scrollButton-features');
-    var scrollButtonPricing = document.getElementById('scrollButton-pricing');
-    var section1 = document.getElementById('section-1');
-    var section2 = document.getElementById('section-2');
+    function scrollToElement(selector) {
+        const element = document.querySelector(selector);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 
-    if (scrollButtonFeatures && section1) {
-        scrollButtonFeatures.addEventListener('click', function () {
-            section1.scrollIntoView({ behavior: "smooth" });
+    // Function to load lottie animation
+    function renderLottieAnimation() {
+        const animations = [
+            { id: 'lottie', path: '../assets/svg1.json' },
+            { id: 'lottie2', path: '../assets/svg2.json' },
+            { id: 'lottie3', path: '../assets/svg3.json' },
+            { id: 'lottie4', path: '../assets/svg4.json' },
+        ];
+        animations.forEach(animation => {
+            const container = document.getElementById(animation.id);
+            if (container) {
+                lottie.loadAnimation({
+                    container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: animation.path,
+                });
+            }
         });
     }
 
-    if (scrollButtonPricing && section2) {
-        scrollButtonPricing.addEventListener('click', function () {
-            section2.scrollIntoView({ behavior: "smooth" });
+    // Check if the current page is index.html
+    const title = document.getElementsByTagName('title')[0].innerHTML;
+    if (title === 'GrooveTask') {
+        // Event listeners for the scroll buttons
+        document.getElementById('scrollButton-features')?.addEventListener('click', () => {
+            scrollToElement('#section-1');
+        });
+        document.getElementById('scrollButton-pricing')?.addEventListener('click', () => {
+            scrollToElement('#section-2');
         });
     }
-} else {
-    // Si no estás en la página index.html, el script no hace nada
-}
 
-var getStarted = document.getElementById('getStarted');
-getStarted.addEventListener('click', function () {
-    window.location.href = '/signup.html';
+    // Event listener for the get started button
+    const getStarted = document.getElementById('getStarted');
+    if (getStarted) {
+        getStarted.addEventListener('click', () => {
+            window.location.href = '../pages/signup.html';
+        });
+    }
+
+    // Render lottie animation
+    renderLottieAnimation();
 });
-
-// Create a function to render lottie animation
-function renderLottieAnimation() {
-
-    // Render lottie animation ../svg1.json and render in the div with id lottie, lottie2, lottie3 
-
-    lottie.loadAnimation({
-        container: document.getElementById('lottie'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: '../svg1.json'
-    });
-
-    lottie.loadAnimation({
-        container: document.getElementById('lottie2'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: '../svg2.json'
-    });
-
-    lottie.loadAnimation({
-        container: document.getElementById('lottie3'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: '../svg3.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('lottie4'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: '../svg4.json'
-    });
-}
-
-// Call the function to render lottie animation
-renderLottieAnimation();

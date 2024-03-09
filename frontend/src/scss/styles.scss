@@ -1,7 +1,4 @@
 @import "bootstrap/scss/bootstrap";
-
-// Add svg background to the first container of the page
-
 .cover-container {
     max-width: 80em;
 }
@@ -15,7 +12,6 @@
         opacity: 0;
         transform: translateY(50px) scale(0.8);
     }
-
     50% {
         opacity: 1;
         transform: translateY(0) scale(1.1);
