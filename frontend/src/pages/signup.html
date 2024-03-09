@@ -5,13 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GrooveTask | signup</title>
-    <script type="module" src="../js/main.js"></script>
     <script src="https://kit.fontawesome.com/7db41e77f2.js" crossorigin="anonymous"></script>
     <link rel="icon" href="../assets/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../scss/styles.scss" />
-    <style>
-        /* Add your custom styles here */
-    </style>
 </head>
 
 <body>
@@ -23,31 +19,36 @@
                     <p class="fs-6 mt-3 fw-lighter">Optimize your workflow with GrooveTask</p>
                     <p class="mt-3">Create an account</p>
                 </h1>
-                <form id="signupForm">
+                <form id="signupForm" onsubmit="">
                     <div class="mb-3 shadow">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" required>
+                        <div id="usernameError" class="error-message"></div>
                     </div>
                     <div class="mb-3 shadow">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
+                        <div id="emailError" class="error-message"></div>
                     </div>
                     <div class="mb-3 shadow">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        <div id="passwordError" class="error-message"></div>
                     </div>
                     <div class="mb-3 shadow">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                             required>
+                        <div id="confirmPasswordError" class="error-message"></div>
                     </div>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" value="" id="agreeTerms" required>
                         <label class="form-check-label" for="agreeTerms">
                             I agree to the <a href="terms.html">terms and conditions</a>
                         </label>
+                        <div id="agreeTermsError" class="error-message"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Sign Up</button>
                 </form>
             </div>
             <div class="col-md-1 ms-5 d-flex align-items-center justify-content-center text-center slide-left">
@@ -57,13 +58,13 @@
                 <div class="shadow-sm">
                     <h1 class="fs-2 animate__animated mb-5 mt-1 text-center">Sign in with</h1>
                     <button type="button" class="shadow btn btn-outline-primary w-100 mb-3 text-start">
-                        <i class="fa-brands fa-google px-2 fa-beat" style="color: #0d6cf9;"></i> Google
+                        <i class="fab fa-google px-2 fa-beat" style="color: #0d6cf9;"></i> Google
                     </button>
                     <button type="button" class="shadow btn btn-outline-primary w-100 mb-3 text-start">
-                        <i class="fa-brands fa-facebook px-2 fa-beat" style="color: #0d6cf9;"></i> Facebook
+                        <i class="fab fa-facebook px-2 fa-beat" style="color: #0d6cf9;"></i> Facebook
                     </button>
                     <button type="button" class="shadow btn btn-outline-primary w-100 mb-3 text-start">
-                        <i class="fa-brands fa-twitter px-2 fa-beat" style="color: #0d6cf9;"></i> Twitter
+                        <i class="fab fa-twitter px-2 fa-beat" style="color: #0d6cf9;"></i> Twitter
                     </button>
                     <hr class="hr hr-blurry" />
                     <p class="text-center">Forgot your password? <a href="forgot_password.html">Reset it here</a></p>
@@ -74,7 +75,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container fade-in">
         <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -89,6 +90,6 @@
             <p class="text-center text-body-secondary">&copy; 2024 GrooveTask, Inc</p>
         </footer>
     </div>
+    <script src="../js/validation.js"></script>
 </body>
-
 </html>
