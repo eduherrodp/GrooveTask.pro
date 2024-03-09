@@ -1,5 +1,5 @@
 import lottie from 'lottie-web';
-import AOS from 'aos';
+// import AOS from 'aos';
 document.addEventListener('DOMContentLoaded', () => {
      // Initialize AOS for scroll animations
      AOS.init({
