@@ -1,6 +1,9 @@
 "use strict";
 
-var code = '4/0AeaYSHA5hfCIit9epmsHheNflP0s39dyre1CfHET3pSKrx06YacsIPKQnPsyP3XFWxNIlQ'; // Código de autorización de la URL
+var _require = require('googleapis'),
+  google = _require.google;
+var oauth2Client = new google.auth.OAuth2('48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com', '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', 'https://www.edhrrz.pro');
+var code = 'code=4/0AeaYSHCmGwGZqMePbL0k5PAifDEYRd3GSMDKhWn00aPIKikTN0zwAGooXvT031hb5tJaZw'; // Código de autorización de la URL
 
 oauth2Client.getToken(code, function (err, tokens) {
   if (err) {
@@ -23,6 +26,7 @@ oauth2Client.getToken(code, function (err, tokens) {
       } else {
         var taskLists = response.data.items;
         // Haz algo con las listas de tareas
+        console.log('Listas de tareas:', taskLists);
       }
     });
   }
