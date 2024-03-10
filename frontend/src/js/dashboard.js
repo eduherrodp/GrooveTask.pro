@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Hidden the link button if the user already has a Google account linked
                 if (googleCode !== null && googleCode !== '') {
                     const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection');
-                    linkGoogleAccountSection.style.display = 'none';
+                    linkGoogleAccountSection.style.setProperty('display', 'none', 'important');
 
                     // And show the principal section
                     const principalSection = document.getElementById('principal');
