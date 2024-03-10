@@ -93,30 +93,33 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
-});
 
-// Event listener for linking Google account    
-if (code) {
-    console.log('Code found in URL:', code);
-    // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
-    const response = await fetch('https://db.edhrrz.pro/user/save', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
 
-        body: JSON.stringify({
-            type: 'googleCode',
-            data: code
-        }),
-    });
 
-    if (response.ok) {
-        console.log('Code saved in database');
+    // Event listener for linking Google account    
+    if (code) {
+        console.log('Code found in URL:', code);
+        // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
+        const response = await fetch('https://db.edhrrz.pro/user/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                type: 'googleCode',
+                data: code
+            }),
+        });
+
+        if (response.ok) {
+            console.log('Code saved in database');
+        } else {
+            console.error('Error saving code in database:', response.statusText);
+        }
+
     } else {
-        console.error('Error saving code in database:', response.statusText);
+        console.error('Code not found in URL');
     }
 
-} else {
-    console.error('Code not found in URL');
-}
+});
