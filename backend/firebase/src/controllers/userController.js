@@ -92,7 +92,8 @@ async function saveData(req, res) {
 
     console.log("Type:", type);
     console.log("Data:", data);
-    
+    console.log("UID:", uid);
+
     // get refernece to the user in the database
     const userRef = ref(getDatabase(), `users/${uid}`);
 
