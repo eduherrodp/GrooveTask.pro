@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const email = userData.email;
                 const googleCode = userData.googleCode;
 
+                console.log('User data:', userData);
+
                 // Change the DOM, put username in all elements with class 'db-username'
                 const usernameElements = document.querySelectorAll('.db-username');
                 usernameElements.forEach(element => {
