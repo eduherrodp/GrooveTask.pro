@@ -5,7 +5,8 @@ function createUserInDatabase(uid, email, username) {
   const db = getDatabase();
   return set(ref(db, `users/${uid}`), {
     email: email,
-    username: username
+    username: username,
+    g_account: false,
   });
 }
 

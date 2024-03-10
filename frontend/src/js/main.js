@@ -1,16 +1,10 @@
 import lottie from 'lottie-web';
-// import AOS from 'aos';
+import AOS from 'aos'
 document.addEventListener('DOMContentLoaded', () => {
-     // Initialize AOS for scroll animations
-     AOS.init({
-        debounceDelay: 50, // The delay on debounce used while resizing window (in ms)
-        offset: 100, // Offset (in px) from the original trigger point
-        duration: 1000, // Duration of animation (in ms)
-        easing: 'ease', // Easing type
-        once: false, 
-        mirror: true,
-        delay: 50,
-    });
+    // Check if isnt /pages/dashboard.html
+    if (window.location.pathname !== '../pages/dashboard.html') {
+        AOS.init();
+    }
 
     function scrollToElement(selector) {
         const element = document.querySelector(selector);

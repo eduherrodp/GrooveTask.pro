@@ -1,3 +1,5 @@
+// firebaseConfig.js
+
 module.exports = {
     apiKey: "AIzaSyCh3HAFSgVtgxro8HySEfHcR1D3cjeUOJ4",
     authDomain: "groove-416603.firebaseapp.com",

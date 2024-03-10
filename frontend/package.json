@@ -15,9 +15,11 @@
     "vite": "^5.1.4"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.3",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
+    "firebase": "^10.8.1",
     "lottie-web": "^5.12.2",
     "wow.js": "^1.2.2"
   }

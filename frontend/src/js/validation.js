@@ -31,13 +31,42 @@ class Validation {
      * Handles the form submission event.
      * @param {Event} event - The submit event.
      */
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
 
         const isValid = this.validateForm();
 
         if (isValid) {
-            event.target.submit();
+            // Performance to send the form data to the server (https://db.edhrrz.pro)
+            const formData = new FormData(event.target);
+            const formObject = {};
+
+            // Convert FormData to an object
+            for (const [key, value] of formData.entries()) {
+                formObject[key] = value;
+            }
+
+            try {
+                const response = await fetch('https://db.edhrrz.pro/user/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formObject)
+                });
+
+                const data = await response.json();
+                console.log('User registered:', data.user);
+
+                // Here we can redirect the user to the login page because the registration was successful
+
+                // Redirect to the login page
+                window.location.href = '/pages/login.html';
+            } catch (error) {
+                console.error('Error registering user:', error.message);
+            }
+            // Do not submit the form 'cause we're using fetch to send the data to the server (https://db.edhrrz.pro)
+            // event.target.submit();
         }
     }
 

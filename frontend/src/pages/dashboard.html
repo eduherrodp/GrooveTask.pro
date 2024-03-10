@@ -7,8 +7,9 @@
     <title>GrooveTask | Dashboard</title>
     <script type="module" src="../js/main.js"></script>
     <script src="https://kit.fontawesome.com/7db41e77f2.js" crossorigin="anonymous"></script>
-    <!-- <link href="sidebars.css" rel="stylesheet"> -->
     <link rel="icon" href="../assets/logo.png" type="image/x-icon">
+    <script src="../js/dashboard.js"></script>
+    <link href="../scss/styles.scss" rel="stylesheet">
 </head>
 
 <body>
@@ -57,7 +58,7 @@
                 <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>mdo</strong>
+                    <strong class="db-username"></strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow">
                     <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -66,23 +67,31 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li><a class="dropdown-item" href="#" id="singout">Sign out</a></li>
                 </ul>
             </div>
         </div>
-        <div class="flex-grow-1 p-3">
+        <div class="flex-grow-1 p-3 d-flex flex-column">
             <div class="d-flex flex-column">
-                <div class="align-content-stretch">
-                    <h1>Welcome to GrooveTask</h1>
-                    <p class="lead">This is a simple dashboard for GrooveTask</p>
+                <h2 class="p-4">Hi <span class="db-username"></span></h2>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center flex-grow-1">
+                <div class="text-center mb-4">
+                    <img src="../assets/task.svg" alt="Task Image" width="150" height="150" class="mb-3">
+                    <h2>Link your Google Account to access your tasks</h2>
+                    <button class="btn btn-primary mt-3" id="linkGoogleAccount">Link Google Account</button>
                 </div>
             </div>
         </div>
+        
+        
         <div class="d-flex flex-column p-3 bg-body-tertiary shadow-lg align-items-stretch"
             style="width: 280px; min-height: 100%;">
             Pin
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 
 </html>
