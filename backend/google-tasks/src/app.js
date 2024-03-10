@@ -23,15 +23,6 @@ const scopes = [
 ];
 
 
-// Configuration for CORS
-const corsOptions = {
-  origin: 'https://api.edhrrz.pro',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
-
-
 // rl.question('Enter the authorization code:', async (code) => {
 //   try {
 //     const { tokens } = await oauth2Client.getToken(code);
@@ -68,7 +59,14 @@ app.get('/getLink', (req, res) => {
   res.status(200).json({ link: authorizationUrl });
 });
 
-app.use(cors(corsOptions));
+// Middleware para permitir CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.edhrrz.pro');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
