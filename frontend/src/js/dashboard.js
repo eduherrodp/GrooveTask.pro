@@ -58,4 +58,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         console.error('Token or user ID not found in localStorage');
     }
+
+    // Event listener for linking Google account
+    const linkGoogleAccountButton = document.getElementById('linkGoogleAccount');
+    if (linkGoogleAccountButton) {
+        linkGoogleAccountButton.addEventListener('click', async() => {
+            try {
+                // Send request to API server to get authorization URL
+                const response = await fetch('https://api.edhrrz.pro/getLink', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const authorizationLink = data.authorizationLink;
+
+                    // Redirect user to Google authorization page
+                    window.location.href = authorizationLink;
+                } else {
+                    console.error('Error fetching authorization link:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching authorization link:', error.message);
+            }
+        });
+    }
 });
