@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const userData = await response.json();
                 const username = userData.username;
                 const email = userData.email;
+                const googleCode = userData.googleCode;
 
                 // Change the DOM, put username in all elements with class 'db-username'
                 const usernameElements = document.querySelectorAll('.db-username');
@@ -52,6 +53,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                         console.error('Error ending session:', errorData.error);
                     }
                 });
+
+                // Hidden the link button if the user already has a Google account linked
+                if (googleCode) {
+                    const linkGoogleAccountButton = document.getElementById('linkGoogleAccount');
+                    linkGoogleAccountButton.style.display = 'none';
+
+                    // And show the principal section
+                    const principalSection = document.getElementById('principal');
+                    principalSection.style.display = 'block';
+                }
 
             } else {
                 const errorData = await response.json();
@@ -116,9 +127,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             console.error('Error saving code in database:', response.statusText);
         }
-
     } else {
         console.error('Code not found in URL');
-    }
+    } 
 
 });
