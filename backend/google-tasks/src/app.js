@@ -1,4 +1,5 @@
 const { google } = require('googleapis');
+const {cors} = require('cors');
 
 const express = require('express');
 const app = express();
@@ -20,6 +21,16 @@ const scopes = [
   'https://www.googleapis.com/auth/tasks.readonly',
   'https://www.googleapis.com/auth/tasks'
 ];
+
+
+// Configuration for CORS
+const corsOptions = {
+  origin: 'https://api.edhrrz.pro',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
 
 // rl.question('Enter the authorization code:', async (code) => {
 //   try {
@@ -56,6 +67,8 @@ app.get('/getLink', (req, res) => {
 
   res.status(200).json({ link: authorizationUrl });
 });
+
+app.use(cors(corsOptions));
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
