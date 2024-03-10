@@ -1,6 +1,11 @@
 // dashboard.js
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+    // Check if code is in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
     // Obtener el token y el ID del usuario del almacenamiento local
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_');
@@ -59,7 +64,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Token or user ID not found in localStorage');
     }
 
-    // Event listener for linking Google account
+    // Event listener for linking Google account    
+    if (code) {
+        console.log('Code found in URL:', code);
+    } else {
+        console.error('Code not found in URL');
+    }
+
     const linkGoogleAccountButton = document.getElementById('linkGoogleAccount');
     if (linkGoogleAccountButton) {
         linkGoogleAccountButton.addEventListener('click', async() => {
@@ -78,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     // Redirect user to Google authorization page
                     console.log('Redirecting to Google authorization page:', authorizationLink);
-                    window.location.href = authorizationLink;
+                    window.location.href = authorizationLink;                    
                 } else {
                     console.error('Error fetching authorization link:', response.statusText);
                 }
