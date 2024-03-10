@@ -1,4 +1,3 @@
-const readline = require('readline');
 const { google } = require('googleapis');
 
 const express = require('express');
@@ -26,10 +25,6 @@ const scopes = [
   'https://www.googleapis.com/auth/tasks.readonly',
   'https://www.googleapis.com/auth/tasks'
 ];
-
-
-
-console.log('Authorize this app by visiting this url:', authorizationUrl);
 
 // rl.question('Enter the authorization code:', async (code) => {
 //   try {
@@ -62,6 +57,8 @@ app.get('/getLink', (req, res) => {
     // Enable incremental authorization. Recommended as a best practice.
     include_granted_scopes: true
   });
+  console.log('Authorize this app by visiting this url:', authorizationUrl);
+
   res.status(200).json({ link: authorizationUrl });
 });
 
