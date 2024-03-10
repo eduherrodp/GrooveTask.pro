@@ -83,7 +83,6 @@ async function getUserInfo(req, res) {
   }
 }
 
-
 // Function to add new register in user, as code, phone, etc
 async function saveData(req, res) {
   try {
@@ -91,13 +90,16 @@ async function saveData(req, res) {
     const { type, data } = req.body;
     const { uid } = req.params;
 
+    console.log("Type:", type);
+    console.log("Data:", data);
+    
     // get refernece to the user in the database
     const userRef = ref(getDatabase(), `users/${uid}`);
 
     // Get user information from the database
     const snapshot = await get(userRef);
     const userData = snapshot.val();
-
+      
     if (userData) {
       // Save the data in the user
       userData[type] = data;
