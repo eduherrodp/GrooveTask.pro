@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (code) {
         console.log('Code found in URL:', code);
         // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
+        console.log("USER TO MODIFY: ", userId);
         const response = await fetch('https://db.edhrrz.pro/user/save', {
             method: 'POST',
             headers: {
@@ -108,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // We also need to send uid in the URL to identify the user
             body: JSON.stringify({ type: 'googleCode', data: code }),
+            params: { uid: userId }
         });
 
         if (response.ok) {
