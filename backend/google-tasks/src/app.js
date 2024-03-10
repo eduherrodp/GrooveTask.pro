@@ -5,15 +5,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// Middleware para permitir CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  next();
-});
-
 /**
  * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
  * from the client_secret.json file. To get these credentials for your application, visit
@@ -31,25 +22,15 @@ const scopes = [
   'https://www.googleapis.com/auth/tasks'
 ];
 
+// Habilitar CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
 
-// rl.question('Enter the authorization code:', async (code) => {
-//   try {
-//     const { tokens } = await oauth2Client.getToken(code);
-//     oauth2Client.setCredentials(tokens);
-//     console.log('Access token:', tokens.access_token);
-//     console.log('Refresh token:', tokens.refresh_token);
-
-//     // Get taskslist from Google Tasks API
-//     const tasks = google.tasks({ version: 'v1', auth: oauth2Client });
-
-//     const res = await tasks.tasklists.list();
-//     console.log('Task Lists:', res.data.items);
-
-//     rl.close();
-//   } catch (error) {
-//     console.error('Error retrieving access token:', error);
-//   }
-// });
 
 // Route to get the authorization URL
 app.get('/getLink', (req, res) => {
