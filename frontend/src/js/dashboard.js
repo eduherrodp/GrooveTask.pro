@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const username = userData.username;
                 const email = userData.email;
 
-               // Change the DOM, put username in all elements with class 'db-username'
+                // Change the DOM, put username in all elements with class 'db-username'
                 const usernameElements = document.querySelectorAll('.db-username');
                 usernameElements.forEach(element => {
                     element.textContent = username;
@@ -64,16 +64,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Token or user ID not found in localStorage');
     }
 
-    // Event listener for linking Google account    
-    if (code) {
-        console.log('Code found in URL:', code);
-    } else {
-        console.error('Code not found in URL');
-    }
 
     const linkGoogleAccountButton = document.getElementById('linkGoogleAccount');
     if (linkGoogleAccountButton) {
-        linkGoogleAccountButton.addEventListener('click', async() => {
+        linkGoogleAccountButton.addEventListener('click', async () => {
             try {
                 // Send request to API server to get authorization URL
                 const response = await fetch('https://api.edhrrz.pro/getLink', {
@@ -89,7 +83,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     // Redirect user to Google authorization page
                     console.log('Redirecting to Google authorization page:', authorizationLink);
-                    window.location.href = authorizationLink;                    
+
+                    window.location.href = authorizationLink;
                 } else {
                     console.error('Error fetching authorization link:', response.statusText);
                 }
@@ -99,3 +94,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 });
+
+// Event listener for linking Google account    
+if (code) {
+    console.log('Code found in URL:', code);
+    // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
+    const response = await fetch('https://db.edhrrz.pro/user/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            type: 'googleCode',
+            data: code
+        }),
+    });
+
+    if (response.ok) {
+        console.log('Code saved in database');
+    } else {
+        console.error('Error saving code in database:', response.statusText);
+    }
+
+} else {
+    console.error('Code not found in URL');
+}

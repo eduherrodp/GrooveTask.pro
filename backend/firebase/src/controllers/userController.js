@@ -83,4 +83,31 @@ async function getUserInfo(req, res) {
   }
 }
 
-module.exports = { signup, login, logout, getUserInfo };
+
+// Function to add new register in user, as code, phone, etc
+async function saveData(req, res) {
+  // We receive the type of data to save, and the data
+  const { type, data } = req.body;
+  const { uid } = req.params;
+
+  // get refernece to the user in the database
+  const userRef = ref(getDatabase(), `users/${uid}`);
+
+  // Get user information from the database
+  const snapshot = await get(userRef);
+  const userData = snapshot.val();
+
+  if (userData) {
+    // Save the data in the user
+    userData[type] = data;
+
+    // Update the user in the database
+    await set(userRef, userData);
+
+    res.status(200).json({ message: "Data saved successfully" });
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+}
+
+module.exports = { signup, login, logout, getUserInfo, saveData };
