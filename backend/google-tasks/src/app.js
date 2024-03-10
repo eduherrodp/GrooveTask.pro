@@ -5,6 +5,15 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Middleware para permitir CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.edhrrz.pro');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 /**
  * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
  * from the client_secret.json file. To get these credentials for your application, visit
@@ -59,14 +68,6 @@ app.get('/getLink', (req, res) => {
   res.status(200).json({ link: authorizationUrl });
 });
 
-// Middleware para permitir CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.edhrrz.pro');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  next();
-});
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
