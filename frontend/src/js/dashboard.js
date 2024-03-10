@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // Hidden the link button if the user already has a Google account linked
                 if (googleCode) {
-                    const linkGoogleAccountButton = document.getElementById('linkGoogleAccount');
-                    linkGoogleAccountButton.style.display = 'none';
+                    const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSeccion');
+                    linkGoogleAccountSection.style.display = 'none';
 
                     // And show the principal section
                     const principalSection = document.getElementById('principal');
@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } else {
         console.error('Token or user ID not found in localStorage');
+        // User is not logged in, redirect to login page
+        window.location.href = 'https://edhrrz.pro/pages/login.html';
     }
 
 
