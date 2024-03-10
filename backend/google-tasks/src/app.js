@@ -4,11 +4,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
 /**
  * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
  * from the client_secret.json file. To get these credentials for your application, visit
