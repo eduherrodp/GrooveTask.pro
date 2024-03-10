@@ -106,10 +106,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'Content-Type': 'application/json'
             },
 
-            body: JSON.stringify({
-                type: 'googleCode',
-                data: code
-            }),
+            // We also need to send uid in the URL to identify the user
+            body: JSON.stringify({ type: 'googleCode', data: code }),
+            params: { uid: userId }
         });
 
         if (response.ok) {
