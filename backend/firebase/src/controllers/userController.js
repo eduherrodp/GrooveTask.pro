@@ -87,8 +87,7 @@ async function getUserInfo(req, res) {
 async function saveData(req, res) {
   try {
     // We receive the type of data to save, and the data
-    const { type, data } = req.body;
-    const { uid } = req.params;
+    const { type, data, uid } = req.body;
 
     console.log("Type:", type);
     console.log("Data:", data);
