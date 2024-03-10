@@ -74,9 +74,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    const authorizationLink = data.authorizationLink;
+                    const authorizationLink = data.link;
 
                     // Redirect user to Google authorization page
+                    console.log('Redirecting to Google authorization page:', authorizationLink);
                     window.location.href = authorizationLink;
                 } else {
                     console.error('Error fetching authorization link:', response.statusText);
