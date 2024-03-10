@@ -56,15 +56,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 });
 
-                // Hidden the link button if the user already has a Google account linked
+                // We need to hide the linkGoogleAccountSection if the user already has a googleCode
                 if (googleCode !== null && googleCode !== '') {
                     const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection');
-                    linkGoogleAccountSection.style.setProperty('display', 'none', 'important');
+                    linkGoogleAccountSection.classList.add('fade-out');
 
-                    // And show the principal section
-                    const principalSection = document.getElementById('principal');
-                    principalSection.style.display = 'block';
+            
+                    setTimeout(() => {
+                        linkGoogleAccountSection.style.setProperty('display', 'none');
+                    }, 300);
                 }
+
 
             } else {
                 const errorData = await response.json();
@@ -123,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
 
             // We also need to send uid in the URL to identify the user
-            body: JSON.stringify({ type: 'googleCode', data: code, uid: userId}),
+            body: JSON.stringify({ type: 'googleCode', data: code, uid: userId }),
         });
 
         if (response.ok) {
@@ -133,6 +135,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } else {
         console.error('Code not found in URL');
-    } 
+    }
 
 });

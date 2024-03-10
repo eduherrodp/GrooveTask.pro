@@ -141,3 +141,8 @@ i.fa-arrow-down::hover {
     color: red;
     font-size: 14px;
 }
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Define la duración y el efecto de la transición */
+    pointer-events: none; /* Evita que los elementos sean clicables durante la transición */
+}
