@@ -125,7 +125,7 @@ const oAuth2Client = new google.auth.OAuth2(
   'https://api.edhrrz.pro'
 );
 
-async function token(req, res) {
+async function getToken(req, res) {
   try {
     const { code } = req.body;
     console.log("Code:", code);
@@ -141,4 +141,4 @@ async function token(req, res) {
 }
 
 
-module.exports = { signup, login, logout, getUserInfo, saveData, token };
+module.exports = { signup, login, logout, getUserInfo, saveData, getToken };
