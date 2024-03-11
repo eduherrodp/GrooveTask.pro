@@ -37,7 +37,7 @@ class Validation {
                 
                 if (response.ok) {
                     const data = await response.json();
-                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('token_firestore', data.token);
                     localStorage.setItem('user_', data.user_);
     
                     // Redirigir a la página de dashboard
