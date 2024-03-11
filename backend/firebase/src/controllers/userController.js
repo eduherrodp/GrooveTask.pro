@@ -121,7 +121,7 @@ async function getToken(req, res) {
         title: task.title,
         updated: task.updated,
         selfLink: task.selfLink,
-        status: task.status,
+        status: task.completed,
         due: task.due,
         notes: task.notes
       }));
