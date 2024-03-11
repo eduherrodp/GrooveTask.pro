@@ -67,20 +67,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     console.log("Se enviará: ", googleCode);
 
-                    // Send googleCode to the backend to exchange it for a token in server
-                    const response = await fetch('https://db.edhrrz.pro/user/getToken', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ code: googleCode }),
-                    });
+                    // Check if googleCode exists and is not empty
+                    if (googleCode) {
+                        // Send googleCode to the backend to exchange it for a token in server
+                        const response = await fetch('https://db.edhrrz.pro/user/getToken', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ code: googleCode }),
+                        });
 
-                    // CONCLUYO FETCH
+                        if (response.ok) {
+                            const data = await response.json();
+                            const tokens = data.tokens;
+                            console.log('Tokens:', tokens);
 
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('Token:', data.message);
+                            // Save tokens in localStorage
+                            localStorage.setItem('googleTokens', JSON.stringify(tokens));
+                        } else {
+                            console.error('Error getting tokens:', response.statusText);
+                        }
+                    } else {
+                        console.log('googleCode not found or empty');
                     }
                 }
 
