@@ -5,18 +5,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
 
-    // Obtener el token_firestore y el ID del usuario del almacenamiento local
-    const token_firestore = localStorage.getItem('token_firestore');
+    // Obtener el token y el ID del usuario del almacenamiento local
+    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_');
 
-    if (token_firestore && userId) {
-        console.log('Token and user ID found in localStorage: ', token_firestore, userId);
+    if (token && userId) {
+        console.log('Token and user ID found in localStorage: ', token, userId);
         try {
             // Enviar una solicitud al servidor para obtener la información del usuario
             const response = await fetch(`https://db.edhrrz.pro/user/info/${userId}`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token_firestore}`,
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include'
@@ -35,12 +35,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 document.getElementById('singout').addEventListener('click', async () => {
                     // End the session
-                    localStorage.removeItem('token_firestore');
+                    localStorage.removeItem('token');
                     localStorage.removeItem('user_');
                     const response = await fetch('https://db.edhrrz.pro/user/logout', {
                         method: 'GET',
                         headers: {
-                            'Authorization': `Bearer ${token_firestore}`,
+                            'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         },
                     }).catch(error => console.error('Error:', error.message));
