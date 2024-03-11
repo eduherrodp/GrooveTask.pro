@@ -62,6 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     linkGoogleAccountSection.classList.add('fade-out');
                     setTimeout(() => {
                         linkGoogleAccountSection.style.setProperty('display', 'none');
+                        const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
+                        parentLinkGoogleAccountSection.classList.remove('justify-content-center align-items-center');
                     }, 300);
                 }
 
