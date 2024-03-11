@@ -95,9 +95,12 @@ const oAuth2Client = new google.auth.OAuth2(
 async function getToken(req, res) {
   try {
     const { code } = req.body;
+    console.log("Code received:", code);
 
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
+
+    console.log("Tokens:", tokens);
 
     res.status(200).json({ message: "Token obtained successfully", tokens });
   } catch (error) {
@@ -110,20 +113,10 @@ async function getToken(req, res) {
 // update some data in the user, we need type of data to update and the new data
 async function update(req, res) {
   try {
-    // Actualice the data of type "type" where the uid is equal to "uid"
-    // Structure sent in the request
-    // const response = await fetch('https://db.edhrrz.pro/user/update', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ uid: userId, type: 'googleCode', data: code }),
-    // });
-
     const { uid, type, data } = req.body;
     const userRef = ref(getDatabase(), `users/${uid}/${type}`);
     await set(userRef, data);
-    
+
 
     res.status(200).json({ message: "User updated successfully" });
   } catch (error) {

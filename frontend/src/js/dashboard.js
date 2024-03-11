@@ -149,6 +149,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Remove the code from the URL
         window.history.replaceState({}, document.title, window.location.pathname);
+        // Then reload the page
+        window.location.reload();
     } else {
         console.error('Code not found in URL');
     }
