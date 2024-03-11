@@ -131,15 +131,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Event listener for linking Google account    
     if (code) {
         console.log('Code found in URL:', code);
-        // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
+        // Update the user's googleCode in the database	
         const response = await fetch('https://db.edhrrz.pro/user/update', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-
-            // We also need to send uid in the URL to identify the user
-            body: JSON.stringify({ type: 'googleCode', data: googleCode, uid: userId }),
+            body: JSON.stringify({
+                uid: userId,
+                data: {
+                    googleCode: code
+                }
+            });
         });
 
         if (response.ok) {
