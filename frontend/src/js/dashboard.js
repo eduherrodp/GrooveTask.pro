@@ -117,13 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById('completedTasks').textContent = completedTasks;
 
                         // Set the nearest due date task in the DOM
-                        const nearest = document.querySelector('#nearestDueDateTask .card-text');
-                        if (nearestDueDateTask) {
-                            nearest.textContent = nearestDueDateTask.title;
-                        } else {
-                            nearest.textContent = 'No tasks';
-                        }
-
+                        document.getElementById('nearestDueDateTask').textContent = nearestDueDateTask ? nearestDueDateTask.title : 'No tasks';
 
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
