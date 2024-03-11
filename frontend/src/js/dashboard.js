@@ -104,6 +104,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 }
                             });
                         });
+                        // Set the nearest due date task in the DOM
+                        console.log(document.getElementById('nearestDueDateTask'));
+                        document.getElementById('nearestDueDateTask').innerText = nearestDueDateTask ? nearestDueDateTask.title : 'No tasks found';
 
                         // Display total tasks and completed tasks
                         console.log('Total tasks:', totalTasks);
@@ -116,8 +119,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById('totalTasks').textContent = totalTasks;
                         document.getElementById('completedTasks').textContent = completedTasks;
 
-                        // Set the nearest due date task in the DOM
-                        document.getElementById('nearestDueDateTask').innerText = nearestDueDateTask ? nearestDueDateTask.title : 'No tasks found';
 
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
