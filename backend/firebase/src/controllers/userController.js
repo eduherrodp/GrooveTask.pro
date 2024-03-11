@@ -109,8 +109,11 @@ async function getToken(req, res) {
     const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
     const response = await tasks.tasklists.list();
 
+    // Also we need the list of task of each tasklist
+    // const tasklist = response.data.items[0].id;
 
-    console.log("Tasklists:", response.data.items);
+
+    console.log(tasks);
 
     // Convert the response to a JSON object
 
