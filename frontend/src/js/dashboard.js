@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     setTimeout(() => {
                         linkGoogleAccountSection.style.setProperty('display', 'none');
                         const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
-                        parentLinkGoogleAccountSection.classList.remove('justify-content-center align-items-center');
+                        parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
                 }
 
