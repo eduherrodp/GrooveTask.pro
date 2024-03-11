@@ -78,22 +78,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        
+
                         console.log('Data:', data);
-                    
+
                         // Set lists
                         const cardBody = document.querySelector('#my-lists .card-body');
                         cardBody.innerHTML = '';
                         let totalTasks = 0;
                         let completedTasks = 0;
                         let nearestDueDateTask;
-                    
+
                         data.forEach(taskList => {
                             const cardText = document.createElement('p');
                             cardText.classList.add('card-text');
                             cardText.textContent = taskList.title;
                             cardBody.appendChild(cardText);
-                    
+
                             taskList.tasks.forEach(task => {
                                 totalTasks++;
                                 if (task.status === 'completed') {
@@ -104,11 +104,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 }
                             });
                         });
-                    
+
                         // Display total tasks and completed tasks
                         console.log('Total tasks:', totalTasks);
                         console.log('Completed tasks:', completedTasks);
-                    
+
                         // Display nearest due date task
                         console.log('Nearest due date task:', nearestDueDateTask);
 
@@ -117,15 +117,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById('completedTasks').textContent = completedTasks;
 
                         // Set the nearest due date task in the DOM
-                        const nearestDueDateTaskElement = document.getElementById('nearestDueDateTask');
+                        const nearest = document.querySelector('#nearestDueDateTask .card-text');
                         if (nearestDueDateTask) {
-                            nearestDueDateTaskElement.textContent = nearestDueDateTask.title;
+                            nearest.textContent = nearestDueDateTask.title;
                         } else {
-                            nearestDueDateTaskElement.textContent = 'No tasks found';
+                            nearest.textContent = 'No tasks';
                         }
 
-                        
-                    
+
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     }
