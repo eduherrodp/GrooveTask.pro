@@ -12,6 +12,6 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.get('/info/:uid', getUserInfo);
 router.post('/save', saveData);
-router.post('/getToken', getToken);
+router.get('/getToken/:googleCode', getToken);
 
 module.exports = router; 
