@@ -68,14 +68,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.log("Se enviará: ", googleCode);
 
                     // Send googleCode to the backend to exchange it for a token in server
-                    const response = await fetch('https://db.edhrrz.pro/user/getToken', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                    });
-
-                    // Send googleCode to the backend to exchange it for a token in server
                     const res = await fetch('https://db.edhrrz.pro/user/getToken', {
                         method: 'POST',
                         headers: {
@@ -92,24 +84,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const access_token = tokens.access_token;
                     } else {
                         console.error('Error getting tokens:', response.statusText);
-                    }
-
-                    // Use the get user tasklists from googleaapis
-                    const responseTaskLists = await fetch('https://www.googleapis.com/tasks/v1/users/@me/lists', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${access_token}`,
-                            'Content-Type': 'application/json',
-                        }
-                    });
-
-                    if (responseTaskLists.ok) {
-                        const data = await responseTaskLists.json();
-                        console.log('Task lists:', data);
-                    } else {
-                        console.error('Error getting task lists:', responseTaskLists.statusText);
-                    }
-                    
+                    }               
+                    console.log('Access token:', access_token);     
                 
                 }
             } else {
