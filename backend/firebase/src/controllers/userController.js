@@ -111,7 +111,7 @@ async function getToken(req, res) {
 async function update(req, res) {
   try {
     const { uid, type, data } = req.body;
-    const userRef = ref(getDatabase(), `users/${uid}`);
+    const userRef = update(getDatabase(), `users/${uid}`);
 
     await set(userRef, {
       [type]: data
