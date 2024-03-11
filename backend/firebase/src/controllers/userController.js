@@ -115,7 +115,7 @@ async function getToken(req, res) {
 
     // Iterar sobre cada lista de tareas para obtener sus tareas
     const formattedTaskLists = await Promise.all(taskLists.map(async taskList => {
-      const tasksResponse = await tasksService.tasks.list({ tasklist: taskList.id, showCompleted: true});
+      const tasksResponse = await tasksService.tasks.list({ tasklist: taskList.id, showCompleted: true, showHidden: true});
       const taskItems = tasksResponse.data.items.map(task => ({
         id: task.id,
         title: task.title,
