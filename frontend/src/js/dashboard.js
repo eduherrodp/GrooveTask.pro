@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.log("USUARIO ACCEDIO CON GOOGLE");
 
                     // Send googleCode to the backend to exchange it for a token in server
-                    const response = await fetch('https://api.edhrrz.pro/getToken', {
+                    const response = await fetch('https://api.edhrrz.pro/user/getToken', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
