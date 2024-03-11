@@ -95,10 +95,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Use the tokens to make a request to get the user's tasks lists
 
                         try {
-                            const response = await fetch('https://www.googleapis.com/tasks/v1/users/@me/lists', {
+                            const constructURL = 'https://www.googleapis.com/tasks/v1/users/@me/lists?key=' + tokens.access_token;
+                            console.log('URL:', constructURL);
+                            const response = await fetch(constructURL, {
                                 method: 'GET',
                                 headers: {
-                                    'Authorization': `Bearer ${tokens.access_token}`,
                                     'Content-Type': 'application/json'
                                 }
                             });
