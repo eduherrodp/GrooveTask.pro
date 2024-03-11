@@ -68,19 +68,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.log("USUARIO ACCEDIO CON GOOGLE");
 
                     // Send googleCode to the backend to exchange it for a token in server
-                    const response = await fetch('https://api.edhrrz.pro/user/getToken', {
-                        method: 'GET',
+                    const response = await fetch('https://db.edhrrz.pro/user/getToken', {
+                        method: 'POST',
                         headers: {
-                            'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         },
+                        body: JSON.stringify({ googleCode }),
                     });
 
                     // CONCLUYO FETCH
 
                     if (response.ok) {
                         const data = await response.json();
-                        console.log('Token received:', data.message);
+                        const token = data.token;
+                        console.log('Token:', token);
+                        // Save the token in localStorage
+                        localStorage.setItem('token', token);
                     }
                 }
 
