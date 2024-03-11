@@ -116,10 +116,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         console.log('Nearest due date task:', nearestDueDateTask);
 
                         // Set the total tasks and completed tasks in the DOM
-                        console.log(document.getElementById('totalTasks'));
-                        console.log(document.getElementById('completedTasks'));
-                        document.getElementById('totalTasks').textContent = totalTasks;
-                        document.getElementById('completedTasks').textContent = completedTasks;
+                        console.log(document.getElementById('task-completed'));
+                        console.log(document.getElementById('total-tasks'));
+                        document.getElementById('task-completed').textContent = totalTasks;
+                        document.getElementById('total-tasks').textContent = completedTasks;
 
 
                         // Save tokens in localStorage
