@@ -132,9 +132,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const pendingTasks = totalTasks - completedTasks;
 
                         const chart_data = {
-                            labels: ['Tareas completadas', 'Tareas pendientes'],
+                            labels: ['Completed', 'Pending'],
                             datasets: [{
-                                label: 'Tareas',
+                                label: 'Tasks',
                                 data: [completedTasks, pendingTasks],
                                 backgroundColor: [
                                     'rgba(75, 192, 192, 0.2)',
@@ -151,6 +151,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                         const config = { type: 'doughnut', data: chart_data };
                         new Chart(pieChartCanvas, config);
+
+                        // Generate a bar chart where the x axis is the title of the task list and the y axis is the number of tasks
+
+                        const barChartContainer = document.getElementById('barChart');
+                        const barChartCanvas = document.createElement('canvas');
+                        barChartContainer.appendChild(barChartCanvas);
+
+                        const barChartData = {
+                            labels: data.map(taskList => taskList.title),
+                            datasets: [{
+                                label: 'Tasks',
+                                data: data.map(taskList => taskList.tasks.length),
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }],
+                        };
+
+                        const barChartConfig = { type: 'bar', data: barChartData };
+                        new Chart(barChartCanvas, barChartConfig);
+
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     }
