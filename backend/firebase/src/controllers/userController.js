@@ -129,16 +129,18 @@ const oAuth2Client = new google.auth.OAuth2(
 async function getTaskLists(req, res) {
   try {
     const { code } = req.body;
+
+    console.log("Code:", code);
+
+    // Get the access token
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
 
-    const task = google.tasks({ version: 'v1', auth: oAuth2Client });
+    // Get the task lists
+    const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
+    const taskLists = await tasks.tasklists.list();
 
-    const taskLists = await task.tasklists.list();
-    console.log("Task lists:", taskLists.data.items);
-
-    res.status(200).json(taskLists.data.items);
-    
+    res.status(200).json(taskLists.data);
   } catch (error) {
     console.error("Error getting task lists:", error.message);
     res.status(500).json({ error: error.message });
