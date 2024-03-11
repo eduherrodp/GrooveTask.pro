@@ -65,6 +65,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
 
+                    console.log("USUARIO ACCEDIO CON GOOGLE");
+
                     // Send googleCode to the backend to exchange it for a token in server
                     const response = await fetch('https://api.edhrrz.pro/getToken', {
                         method: 'POST',
