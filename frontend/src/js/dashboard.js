@@ -191,6 +191,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
+
+                        // When task nav link is clicked, hide the dashboard and show the tasks and vice versa
+                        const taskNavLink = document.getElementById('task');
+                        const dashboardNavLink = document.getElementById('dashboard');
+                        const taskSection = document.getElementById('task-section');
+                        const principal = document.getElementById('principal');
+                        taskNavLink.addEventListener('click', () => {
+                            principal.classList.add('ocultar');
+                            taskSection.classList.remove('ocultar');
+                        });
+                        dashboardNavLink.addEventListener('click', () => {
+                            taskSection.classList.add('ocultar');
+                            principal.classList.remove('ocultar');
+                        });
+                        
                     }
                 }
 
