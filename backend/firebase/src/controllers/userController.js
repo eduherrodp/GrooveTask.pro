@@ -99,56 +99,50 @@ async function getToken(req, res) {
     const { code } = req.body;
     console.log("Code received:", code);
 
+    // Obtener tokens de autenticación utilizando el código de autorización
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
 
     console.log("Tokens:", tokens);
 
-    // Here we need to get tasklists from the user
-    // Get tasklist from Google Tasks API
+    // Inicializar la instancia de la API de Google Tasks
     const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
-    const response = await tasks.tasklists.list();
-    const tasklists = response.data.items;
 
-    // Array to store formatted tasklists
-    var formattedTasklists = [];
+    // Obtener la lista de listas de tareas del usuario
+    const taskListsResponse = await tasks.tasklists.list();
+    const taskLists = taskListsResponse.data.items;
 
-    // Iterate over each tasklist to get their tasks 
-    for (var tasklist of tasklists) {
-      // Get task of the actual tasklist
-      var tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
-      var tasks_ = tasksResponse.data.items;
-
-      // Format the tasks of the actual tasklist
-      var formattedTasks = tasks_.map(task => ({
-        id: task_.id,
-        title: task_.title,
-        updated: task_.updated,
-        selfLink: task_.selfLink,
-        status: task_.status,
-        due: task_.due,
-        notes: task_.notes,
+    // Iterar sobre cada lista de tareas para obtener sus tareas
+    const formattedTaskLists = await Promise.all(taskLists.map(async taskList => {
+      const tasksResponse = await tasks.tasks.list({ tasklist: taskList.id });
+      const tasks = tasksResponse.data.items.map(task => ({
+        id: task.id,
+        title: task.title,
+        updated: task.updated,
+        selfLink: task.selfLink,
+        status: task.status,
+        due: task.due,
+        notes: task.notes
       }));
-
-      // Format the actual tasklist and add it to the formattedTasklists array
-      var formattedTasklist = {
-        id: tasklist.id,
-        title: tasklist.title,
-        updated: tasklist.updated,
-        selfLink: tasklist.selfLink,
-        tasks: formattedTasks,
+      return {
+        id: taskList.id,
+        title: taskList.title,
+        updated: taskList.updated,
+        selfLink: taskList.selfLink,
+        tasks: tasks
       };
-      formattedTasklists.push(formattedTasklist);
-    }
+    }));
 
-    // Send the formatted tasklists to the client
-    res.status(200).json(formattedTasklists);
+    // Respuesta con el formato requerido
+    console.log("Formatted Task Lists:", formattedTaskLists);
+    res.status(200).json(formattedTaskLists);
 
   } catch (error) {
-    console.error("Error getting tasks:", error.message);
+    console.error("Error getting token:", error.message);
     res.status(500).json({ error: error.message });
   }
 }
+
 
 // update some data in the user, we need type of data to update and the new data
 async function update(req, res) {
