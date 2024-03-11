@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     // Send googleCode to the backend to exchange it for a token in server
                     const response = await fetch('https://api.edhrrz.pro/user/getToken', {
-                        method: 'POST',
+                        method: 'GET',
                         headers: {
                             'Content-Type': 'application/json'
                         },
