@@ -172,6 +172,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const barChartConfig = { type: 'bar', data: barChartData };
                         new Chart(barChartCanvas, barChartConfig);
 
+                        // We need to know the last added task
+                        const lastAddedTask = data.reduce((lastTask, taskList) => {
+                            return taskList.tasks.reduce((lastTask, task) => {
+                                return lastTask.updated > task.updated ? lastTask : task;
+                            }, lastTask);
+                        }, { updated: 0 });
+
+                        // Set the last added task in the DOM
+
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     }
