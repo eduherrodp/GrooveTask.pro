@@ -111,6 +111,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                     
                         // Display nearest due date task
                         console.log('Nearest due date task:', nearestDueDateTask);
+
+                        // Set the total tasks and completed tasks in the DOM
+                        document.getElementById('totalTasks').textContent = totalTasks;
+                        document.getElementById('completedTasks').textContent = completedTasks;
+
+                        // Set the nearest due date task in the DOM
+                        const nearestDueDateTaskElement = document.getElementById('nearestDueDateTask');
+                        if (nearestDueDateTask) {
+                            nearestDueDateTaskElement.textContent = nearestDueDateTask.title;
+                        } else {
+                            nearestDueDateTaskElement.textContent = 'No tasks found';
+                        }
+
+                        
                     
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
