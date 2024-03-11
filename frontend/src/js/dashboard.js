@@ -196,37 +196,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                         taskSection.appendChild(taskList);
 
                         data.forEach(taskList => {
-                            const taskListTitle = document.createElement('h2');
+                            const taskListTitle = document.createElement('h3');
                             taskListTitle.textContent = taskList.title;
-                            taskListTitle.classList.add('tasklist-title');
-                            taskList.appendChild(taskListTitle);
+                            taskSection.appendChild(taskListTitle);
 
                             taskList.tasks.forEach(task => {
                                 const taskItem = document.createElement('li');
                                 taskItem.classList.add('list-group-item');
-                                taskItem.classList.add('d-flex');
-                                taskItem.classList.add('justify-content-between');
-                                taskItem.classList.add('align-items-center');
+                                taskItem.textContent = task.title;
                                 taskList.appendChild(taskItem);
 
-                                const taskTitle = document.createElement('span');
-                                taskTitle.textContent = task.title;
-                                taskItem.appendChild(taskTitle);
-
-                                const taskStatus = document.createElement('span');
-                                taskStatus.textContent = task.status;
-                                taskItem.appendChild(taskStatus);
-
-                                const taskUpdated = document.createElement('span');
-                                taskUpdated.textContent = task.updated;
-                                taskItem.appendChild(taskUpdated);
-
-                                const taskDue = document.createElement('span');
-                                taskDue.textContent = task.due;
-                                taskItem.appendChild(taskDue);
+                                const taskDetails = document.createElement('p');
+                                taskDetails.textContent = `Updated: ${new Date(task.updated).toLocaleString()} | Due: ${task.due ? new Date(task.due).toLocaleString() : 'No due date'} | Status: ${task.status}`;
+                                taskItem.appendChild(taskDetails);
                             });
                         });
-
 
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
