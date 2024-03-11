@@ -121,6 +121,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById('task-completed').textContent = completedTasks;
                         document.getElementById('total-tasks').textContent = totalTasks;
 
+                        // Crear grafico con chart.js para mostrar las tareas de cada lista (grafico de barras)
+                        // Crear gráfico de pastel para mostrar la cantidad de tareas completadas y pendientes
+                        const pieChartCanvas = document.getElementById('pieChart');
+                        const pendingTasks = totalTasks - completedTasks;
+
+                        const pieChart = new Chart(pieChartCanvas, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Completed Tasks', 'Pending Tasks'],
+                                datasets: [{
+                                    data: [completedTasks, pendingTasks],
+                                    backgroundColor: ['#36a2eb', '#ff6384'],
+                                    hoverBackgroundColor: ['#36a2eb', '#ff6384']
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        fontColor: '#333',
+                                        fontSize: 12,
+                                        boxWidth: 10
+                                    }
+                                }
+                            }
+                        });
 
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
