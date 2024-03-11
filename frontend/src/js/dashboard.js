@@ -131,17 +131,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Event listener for linking Google account    
     if (code) {
         console.log('Code found in URL:', code);
-        // Update the user's googleCode in the database	
+        // Update the user's googleCode in the database
         const response = await fetch('https://db.edhrrz.pro/user/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                uid: userId,
-                type: 'googleCode',
-                data: code
-            })
+            body: JSON.stringify({ uid: userId, type: 'googleCode', data: code }),
         });
 
 

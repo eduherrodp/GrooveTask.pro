@@ -23,7 +23,7 @@ async function signup(req, res) {
   try {
     const user = await createUser(email, password);
     // also we need to add that user still don't vinculate their google account for using task api
-    await createUserInDatabase(user.uid, email, username, googleCode , false);
+    await createUserInDatabase(user.uid, email, username, googleCode, false);
 
     console.log("User registered:", user);
     res.status(200).json({ message: "User registered successfully", user });
@@ -110,12 +110,20 @@ async function getToken(req, res) {
 // update some data in the user, we need type of data to update and the new data
 async function update(req, res) {
   try {
-    const { uid, type, data } = req.body;
-    const userRef = update(getDatabase(), `users/${uid}`);
+    // Actualice the data of type "type" where the uid is equal to "uid"
+    // Structure sent in the request
+    // const response = await fetch('https://db.edhrrz.pro/user/update', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ uid: userId, type: 'googleCode', data: code }),
+    // });
 
-    await set(userRef, {
-      [type]: data
-    });
+    const { uid, type, data } = req.body;
+    const userRef = ref(getDatabase(), `users/${uid}/${type}`);
+    await set(userRef, data);
+    
 
     res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
