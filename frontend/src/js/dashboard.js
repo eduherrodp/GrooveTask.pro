@@ -127,13 +127,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const pieChartCanvas = document.createElement('canvas');
                         pieChartContainer.appendChild(pieChartCanvas);
 
-                        const pendingTasks = totalTasks - completedTasks;
+                        
+                        // Parse the data to int
+                        const _pendingTasks = parseInt(pendingTasks);
+                        const _totalTasks = parseInt(totalTasks);
+                        const _completedTasks = _totalTasks - _pendingTasks;
 
                         const chart_data = {
                             labels: ['Tareas completadas', 'Tareas pendientes'],
                             datasets: [{
                                 label: 'Tareas',
-                                data: [completedTasks, pendingTasks],
+                                data: [_completedTasks, _pendingTasks],
                                 backgroundColor: [
                                     'rgba(75, 192, 192, 0.2)',
                                     'rgba(255, 99, 132, 0.2)'
@@ -150,7 +154,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const config = { type: 'doughnut', data: chart_data };
                         new Chart(pieChartCanvas, config);
                         // Save tokens in localStorage
-                        localStorage.setItem('googleTokens', JSON.stringify(tokens));
+                        // localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     }
                 }
 
