@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Set the total tasks and completed tasks in the DOM
                         console.log(document.getElementById('task-completed'));
                         console.log(document.getElementById('total-tasks'));
-                        document.getElementById('task-completed').textContent = totalTasks;
-                        document.getElementById('total-tasks').textContent = completedTasks;
+                        document.getElementById('task-completed').textContent = completedTasks;
+                        document.getElementById('total-tasks').textContent = totalTasks;
 
 
                         // Save tokens in localStorage

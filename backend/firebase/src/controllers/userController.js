@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const { google } = require('googleapis');
 const tasks = google.tasks('v1');
 
+
 const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55'; // Simplicidad
 const auth = getAuth();
 
