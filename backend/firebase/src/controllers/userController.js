@@ -126,8 +126,9 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 // getTaskLists function is used to get the task lists from the user's Google account
-async function getTaskLists(code) {
+async function getTaskLists(req, res) {
   try {
+    const { code } = req.params;
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
     console.log('Tokens:', tokens);

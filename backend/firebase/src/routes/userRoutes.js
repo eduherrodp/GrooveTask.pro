@@ -12,6 +12,6 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.get('/info/:uid', getUserInfo);
 router.post('/save', saveData);
-router.post('/tasklist', getTaskLists);
+router.get('/tasklist:code', getTaskLists);
 
 module.exports = router; 

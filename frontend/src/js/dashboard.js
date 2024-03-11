@@ -144,23 +144,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // getTaskLists function is used to get the task lists from the user's Google account
 async function getTaskLists(code) {
-    // Send the code to the server to exchange it for a token
-    const response = await fetch('https://api.edhrrz.pro/user/tasklist', {
-        method: 'POST',
+
+    // Send the code to the server to exchange it for a tokenm and then the server will get the task lists
+    // send the code by GET method to the server 
+
+    const response = await fetch(`https://api.edhrrz.pro/getTaskLists?code=${code}`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ code: code})
+        }
     });
 
     if (response.ok) {
         const data = await response.json();
-        const token = data.token;
-        console.log('Token:', token);
-        return token;
-    } else {
-        console.error('Error getting Task list:', response.statusText);
+        console.log('Data:', data);
+        return data.token;
     }
+
+    console.error('Error fetching task lists:', response.statusText);
+    
 
     return null;
 }
