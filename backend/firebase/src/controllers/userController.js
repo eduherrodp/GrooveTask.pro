@@ -94,6 +94,7 @@ const oAuth2Client = new google.auth.OAuth2(
 
 async function getToken(req, res) {
   try {
+    console.log("Code received:", req.body);
     const { code } = req.body;
     console.log("Code received:", code);
 
