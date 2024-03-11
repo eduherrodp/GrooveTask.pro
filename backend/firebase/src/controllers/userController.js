@@ -106,16 +106,16 @@ async function getToken(req, res) {
     console.log("Tokens:", tokens);
 
     // Inicializar la instancia de la API de Google Tasks
-    const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
+    const tasksService = google.tasks({ version: 'v1', auth: oAuth2Client });
 
     // Obtener la lista de listas de tareas del usuario
-    const taskListsResponse = await tasks.tasklists.list();
+    const taskListsResponse = await tasksService.tasklists.list();
     const taskLists = taskListsResponse.data.items;
 
     // Iterar sobre cada lista de tareas para obtener sus tareas
     const formattedTaskLists = await Promise.all(taskLists.map(async taskList => {
-      const tasksResponse = await tasks.tasks.list({ tasklist: taskList.id });
-      const tasks = tasksResponse.data.items.map(task => ({
+      const tasksResponse = await tasksService.tasks.list({ tasklist: taskList.id });
+      const taskItems = tasksResponse.data.items.map(task => ({
         id: task.id,
         title: task.title,
         updated: task.updated,
@@ -129,7 +129,7 @@ async function getToken(req, res) {
         title: taskList.title,
         updated: taskList.updated,
         selfLink: taskList.selfLink,
-        tasks: tasks
+        tasks: taskItems
       };
     }));
 
@@ -142,6 +142,7 @@ async function getToken(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
+
 
 
 // update some data in the user, we need type of data to update and the new data
