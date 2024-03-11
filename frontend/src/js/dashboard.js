@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // We need to hide the linkGoogleAccountSection if the user already has a googleCode
                 if (googleCode !== null && googleCode !== '') {
-                    const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection-G');
+                    const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection');
                     linkGoogleAccountSection.classList.add('fade-out');
                     setTimeout(() => {
                         linkGoogleAccountSection.style.setProperty('display', 'none');
@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     console.log("Se enviará: ", googleCode);
 
-                    // Google API Task
                     // Send googleCode to the backend to exchange it for a token in server
                     const response = await fetch('https://db.edhrrz.pro/user/getToken', {
                         method: 'POST',
@@ -77,17 +76,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                         body: JSON.stringify({ code: googleCode }),
                     });
 
+                    // CONCLUYO FETCH
+
                     if (response.ok) {
                         const data = await response.json();
                         const tokens = data.tokens;
                         console.log('Tokens:', tokens);
-                        console.log('access_token', tokens.access_token);
+
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
-                    } else {
-                        console.error('Error getting tokens:', response.statusText);
                     }
                 }
+
+
             } else {
                 const errorData = await response.json();
                 console.error('Error fetching user data:', errorData.error);
@@ -157,4 +158,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         console.error('Code not found in URL');
     }
+
 });
