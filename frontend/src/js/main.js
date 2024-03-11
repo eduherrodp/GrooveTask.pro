@@ -1,5 +1,5 @@
 import lottie from 'lottie-web';
-import AOS from 'aos'
+import AOS from 'aos';
 document.addEventListener('DOMContentLoaded', () => {
     // Check if isnt /pages/dashboard.html
     if (window.location.pathname !== '../pages/dashboard.html') {
