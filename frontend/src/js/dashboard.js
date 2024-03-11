@@ -64,22 +64,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
-
-
-                    // Get the task lists
-                    const response = await fetch(`https://db.edhrrz.pro/user/tasklist/${googleCode}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                        },
-                    });
-
-                    if (response.ok) {
-                        console.log('Task lists fetched successfully');
-                        const taskLists = await response.json();
-                        console.log('Task lists:', taskLists);
-                    }
                 }
 
             } else {
@@ -131,7 +115,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (code) {
         console.log('Code found in URL:', code);
         // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
-        console.log("USER TO MODIFY: ", userId);
         const response = await fetch('https://db.edhrrz.pro/user/save', {
             method: 'POST',
             headers: {
@@ -147,6 +130,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             console.error('Error saving code in database:', response.statusText);
         }
+
+        // Remove the code from the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        try {
+            const response = await fetch('https://db.edhrrz.pro/user/tasklist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: code })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Task lists:', data);
+            } else {
+                console.error('Error getting task lists:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error getting task lists:', error.message);
+        }
+
+        
     } else {
         console.error('Code not found in URL');
     }
