@@ -54,11 +54,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // We need to hide the linkGoogleAccountSection if the user already has a googleCode
                 if (googleCode !== null && googleCode !== '') {
-                    const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection');
+                    const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection-G');
                     linkGoogleAccountSection.classList.add('fade-out');
                     setTimeout(() => {
                         const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
+                        linkGoogleAccountSection.style.display = 'none';
                     }, 300);
 
                     // Send googleCode to the backend to exchange it for a token in server
