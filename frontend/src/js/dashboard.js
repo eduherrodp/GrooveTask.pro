@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     // Send googleCode to the backend to exchange it for a token in server
                     const response = await fetch('https://api.edhrrz.pro/user/getToken', {
-                        method: 'GET',
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -80,11 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        const token = data.token;
-                        console.log('Token:', token);
-
-                        // Save the token in localStorage
-                        localStorage.setItem('token', token);
+                        console.log('Token received:', data.message);
                     }
                 }
 
