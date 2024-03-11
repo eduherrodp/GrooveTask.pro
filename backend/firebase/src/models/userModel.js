@@ -6,6 +6,7 @@ function createUserInDatabase(uid, email, username) {
   return set(ref(db, `users/${uid}`), {
     email: email,
     username: username,
+    googleCode: null,
     g_account: false,
   });
 }

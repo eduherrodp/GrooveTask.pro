@@ -128,14 +128,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-
-
     // Event listener for linking Google account    
     if (code) {
         console.log('Code found in URL:', code);
         // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
-        const response = await fetch('https://db.edhrrz.pro/user/save', {
-            method: 'POST',
+        const response = await fetch('https://db.edhrrz.pro/user/update', {
+            method: 'SET',
             headers: {
                 'Content-Type': 'application/json'
             },

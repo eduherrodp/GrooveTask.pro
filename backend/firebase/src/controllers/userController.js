@@ -85,40 +85,6 @@ async function getUserInfo(req, res) {
   }
 }
 
-// Function to add new register in user, as code, phone, etc
-async function saveData(req, res) {
-  try {
-    // We receive the type of data to save, and the data
-    const { type, data, uid } = req.body;
-
-    console.log("Type:", type);
-    console.log("Data:", data);
-    console.log("UID:", uid);
-
-    // get refernece to the user in the database
-    const userRef = ref(getDatabase(), `users/${uid}`);
-
-    // Get user information from the database
-    const snapshot = await get(userRef);
-    const userData = snapshot.val();
-
-    if (userData) {
-      // Save the data in the user
-      userData[type] = data;
-
-      // Update the user in the database
-      await set(userRef, userData);
-
-      res.status(200).json({ message: "Data saved successfully" });
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (error) {
-    console.error("Error saving data:", error.message);
-    res.status(500).json({ error: error.message });
-  }
-}
-
 const oAuth2Client = new google.auth.OAuth2(
   '48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com',
   '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',
@@ -140,5 +106,19 @@ async function getToken(req, res) {
 
 }
 
+// update some data in the user 
+async function update(req, res) {
+  try {
+    const { uid, data } = req.body;
 
-module.exports = { signup, login, logout, getUserInfo, saveData, getToken };
+    const userRef = ref(getDatabase(), `users/${uid}`);
+    await set(userRef, data);
+
+    res.status(200).json({ message: "Data saved successfully" });
+  } catch (error) {
+    console.error("Error saving data:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = { signup, login, logout, getUserInfo, update, getToken };
