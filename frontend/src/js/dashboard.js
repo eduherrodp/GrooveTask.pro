@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const pieChartCanvas = document.createElement('canvas');
                         pieChartContainer.appendChild(pieChartCanvas);
 
-                        
+
                         // Parse the data to int
                         const pendingTasks = totalTasks - completedTasks;
 
@@ -190,27 +190,43 @@ document.addEventListener('DOMContentLoaded', async () => {
                         progressBar.setAttribute('aria-valuenow', completionPercentage);
 
                         // Add dinamic data to the dashboard, create a single list but categorized them by tasklist,, identify the tasklist by the title, in the task show updated and due date, and the status of the task
+                        // Set dinamic data to the dashboard
                         const taskSection = document.getElementById('tasks-section');
-                        const taskList = document.createElement('ul');
-                        taskList.classList.add('list-group');
-                        taskSection.appendChild(taskList);
 
-                        data.forEach(taskList => {
-                            const taskListTitle = document.createElement('h3');
-                            taskListTitle.textContent = taskList.title;
-                            taskSection.appendChild(taskListTitle);
+                        // Function to create a list item for a task
+                        function createTaskItem(task) {
+                            const taskItem = document.createElement('li');
+                            taskItem.textContent = `${task.title} - Updated: ${task.updated}, Due: ${task.due}, Status: ${task.status}`;
+                            return taskItem;
+                        }
 
+                        // Function to create a list of tasks for a task list
+                        function createTaskList(taskList) {
+                            const listContainer = document.createElement('div');
+                            const listTitle = document.createElement('h3');
+                            listTitle.textContent = taskList.title;
+                            listContainer.appendChild(listTitle);
+                            const taskListUl = document.createElement('ul');
                             taskList.tasks.forEach(task => {
-                                const taskItem = document.createElement('li');
-                                taskItem.classList.add('list-group-item');
-                                taskItem.textContent = task.title;
-                                taskList.appendChild(taskItem);
-
-                                const taskDetails = document.createElement('p');
-                                taskDetails.textContent = `Updated: ${new Date(task.updated).toLocaleString()} | Due: ${task.due ? new Date(task.due).toLocaleString() : 'No due date'} | Status: ${task.status}`;
-                                taskItem.appendChild(taskDetails);
+                                const taskItem = createTaskItem(task);
+                                taskListUl.appendChild(taskItem);
                             });
-                        });
+                            listContainer.appendChild(taskListUl);
+                            return listContainer;
+                        }
+
+                        // Update #tasks-section with the task lists and tasks
+                        function updateTasksSection(data) {
+                            taskSection.innerHTML = '';
+                            data.forEach(taskList => {
+                                const taskListElement = createTaskList(taskList);
+                                taskSection.appendChild(taskListElement);
+                            });
+                        }
+
+                        // Call updateTasksSection with data after fetch
+                        updateTasksSection(data);
+
 
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
@@ -231,7 +247,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             // Change aria-current attribute
                             taskNavLink.removeAttribute('aria-current');
                         });
-                        
+
                     }
                 }
 
