@@ -87,6 +87,28 @@ document.addEventListener('DOMContentLoaded', async () => {
                         } else {
                             console.error('Error getting tokens:', response.statusText);
                         }
+                    } else {
+                        // Here we can use the tokens from localStorage for the Google API Task
+                        const tokens = JSON.parse(localStorage.getItem('googleTokens'));
+                        console.log('Tokens:', tokens);
+
+                        // Use the tokens to make a request to get the user's tasks lists
+                       // HTTP request → GET https://tasks.googleapis.com/tasks/v1/users/@me/lists 
+                        const response = await fetch('https://tasks.googleapis.com/tasks/v1/users/@me/lists', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${tokens.access_token}`,
+                                'Content-Type': 'application/json'
+                            },
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('Tasks lists:', data);
+                        } else {
+                            console.error('Error fetching tasks lists:', response.statusText);
+                        }
+                        
                     }
                 }
 
