@@ -60,13 +60,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (googleCode !== null && googleCode !== '') {
                     const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection');
                     linkGoogleAccountSection.classList.add('fade-out');
-
-            
                     setTimeout(() => {
                         linkGoogleAccountSection.style.setProperty('display', 'none');
+                        // Show principal section
+                        const principalSection = document.getElementById('principal');
+                        principalSection.style.setProperty('display', 'block');
                     }, 300);
                 }
-
 
             } else {
                 const errorData = await response.json();
