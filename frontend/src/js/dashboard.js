@@ -180,6 +180,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         }, { updated: 0 });
 
                         // Set the last added task in the DOM
+                        console.log(document.getElementById('last-added'));
+                        document.getElementById('last-added').innerText = lastAddedTask.title;
 
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
