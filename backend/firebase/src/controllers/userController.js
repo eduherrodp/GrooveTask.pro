@@ -117,17 +117,17 @@ async function getToken(req, res) {
     for (var tasklist of tasklists) {
       // Get task of the actual tasklist
       var tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
-      var tasks = tasksResponse.data.items;
+      var tasks_ = tasksResponse.data.items;
 
       // Format the tasks of the actual tasklist
-      var formattedTasks = tasks.map(task => ({
-        id: task.id,
-        title: task.title,
-        updated: task.updated,
-        selfLink: task.selfLink,
-        status: task.status,
-        due: task.due,
-        notes: task.notes,
+      var formattedTasks = tasks_.map(task => ({
+        id: task_.id,
+        title: task_.title,
+        updated: task_.updated,
+        selfLink: task_.selfLink,
+        status: task_.status,
+        due: task_.due,
+        notes: task_.notes,
       }));
 
       // Format the actual tasklist and add it to the formattedTasklists array
