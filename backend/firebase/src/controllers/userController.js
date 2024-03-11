@@ -136,7 +136,7 @@ async function getToken(req, res) {
     for (const tasklist of taskLists) {
       // Get task of the actual tasklist
       const tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
-      const task = tasksResponse.data.items;
+      const tasks = tasksResponse.data.items;
 
       // Format the tasklist of the actual list
       const formattedTasks = tasks.map(task => ({
@@ -162,7 +162,7 @@ async function getToken(req, res) {
 
     // Send the formatted tasklist to the client
 
-    console.log(tasks);
+    console.log(formattedTasksList);
 
     res.status(200).json(formattedTasksList);
 
