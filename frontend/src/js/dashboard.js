@@ -196,14 +196,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Function to create a list item for a task
                         function createTaskItem(task) {
                             const taskItem = document.createElement('li');
-                            taskItem.textContent = `${task.title} - Updated: ${task.updated}, Due: ${task.due}, Status: ${task.status}`;
+                            // Change update and due date to a human readable format
+                            task.updated = new Date(task.updated).toLocaleString();
+                            task.due = task.due ? new Date(task.due).toLocaleString() : 'No due date';
+                            // if Status is completed change the color of the text to green
+                            if (task.status === 'completed') {
+                                taskItem.classList.add('text-success');
+                            }
+                            // if Status is needsAction change the color of the text to red
+                            if (task.status === 'needsAction') {
+                                taskItem.classList.add('text-danger');
+                            }
+                            taskItem.textContent = `${task.title} - Updated: ${task.updated}, Due: ${task.due}`;
                             return taskItem;
                         }
 
                         // Function to create a list of tasks for a task list
                         function createTaskList(taskList) {
                             const listContainer = document.createElement('div');
-                            const listTitle = document.createElement('h3');
+                            const listTitle = document.createElement('h3').classList.add("p-1 bg-primary bg-gradient text-white rounded ps-3");
                             listTitle.textContent = taskList.title;
                             listContainer.appendChild(listTitle);
                             const taskListUl = document.createElement('ul');
