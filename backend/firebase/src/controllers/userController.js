@@ -108,16 +108,63 @@ async function getToken(req, res) {
     // Get tasklist from Google Tasks API
     const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
     const response = await tasks.tasklists.list();
+    const tasklists = response.data.items;
+  
+    // We just need store whit the following format
+    // id: string { → we need tasks.tasklists.id
+    //   title: string,
+    //   updated: string,
+    //   selfLink: string
+    //   tasks: [ → as parameter we need tasks.tasklists.id 
+    //     {
+    //       id: string,
+    //       title: string,
+    //       updated: string,
+    //       selfLink: string
+    //       status: "needsAction" | "completed", → status, due, notes need tasklist id and task id
+    //       due: string,
+    //       notes: string,
+    //     }
+    //   ]
+    // },
+    // id: setring { → of each tasklist
+    //   ...
+    // }
+    // [...]
 
-    // Also we need the list of task of each tasklist
-    // const tasklist = response.data.items[0].id;
+    // Iterate over each tasklist to get their tasks 
+    for (const tasklist of taskLists) {
+      // Get task of the actual tasklist
+      const tasksResponse = await tasks.tasks.list({tasklist: tasklist.id});
+      const task = tasksResponse.data.items;
 
+      // Format the tasklist of the actual list
+      const formattedTasks = tasks.map(task => ({
+        id: task.id,
+        title: task.title,
+        updated: task.updated,
+        selfLink: task.selfLink,
+        status: task.status,
+        due: task.due,
+        notes: task.notes,
+      }));
+
+      // Format the actual list of tasks and add it to the formatted tasklist
+
+      const formattedTasksList = {
+        id: tasklist.id,
+        title: tasklist.title,
+        updated: tasklist.updated,
+        selfLink: tasklist.selfLink,
+        tasks: formattedTasks,
+      };
+    }
+
+    // Send the formatted tasklist to the client
 
     console.log(tasks);
 
-    // Convert the response to a JSON object
-
-    res.status(200).json(response.data.items);
+    res.status(200).json(formattedTasksList);
 
   } catch (error) {
     console.error("Error getting token:", error.message);
