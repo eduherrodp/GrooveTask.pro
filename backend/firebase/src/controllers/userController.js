@@ -109,7 +109,7 @@ async function getToken(req, res) {
     const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
     const response = await tasks.tasklists.list();
     const tasklists = response.data.items;
-  
+
     // We just need store whit the following format
     // id: string { → we need tasks.tasklists.id
     //   title: string,
@@ -135,7 +135,7 @@ async function getToken(req, res) {
     // Iterate over each tasklist to get their tasks 
     for (const tasklist of taskLists) {
       // Get task of the actual tasklist
-      const tasksResponse = await tasks.tasks.list({tasklist: tasklist.id});
+      const tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
       const task = tasksResponse.data.items;
 
       // Format the tasklist of the actual list
@@ -167,7 +167,7 @@ async function getToken(req, res) {
     res.status(200).json(formattedTasksList);
 
   } catch (error) {
-    console.error("Error getting token:", error.message);
+    console.error("Error getting tasks:", error.message);
     res.status(500).json({ error: error.message });
   }
 }
