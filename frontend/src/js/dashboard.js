@@ -67,8 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     console.log("Se enviará: ", googleCode);
 
-                    // Check if googleCode exists and is not empty
-                    if (googleCode) {
+                    if (!localStorage.getItem('googleTokens')) {
                         // Send googleCode to the backend to exchange it for a token in server
                         const response = await fetch('https://db.edhrrz.pro/user/getToken', {
                             method: 'POST',
@@ -88,8 +87,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         } else {
                             console.error('Error getting tokens:', response.statusText);
                         }
-                    } else {
-                        console.log('googleCode not found or empty');
                     }
                 }
 
