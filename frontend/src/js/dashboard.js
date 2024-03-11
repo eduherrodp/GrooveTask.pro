@@ -57,9 +57,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection-G');
                     linkGoogleAccountSection.classList.add('fade-out');
                     setTimeout(() => {
-                        const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
-                        parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                         linkGoogleAccountSection.style.display = 'none';
+                        const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
+                        document.getElementsById('principal').classList.remove('ocultar');
+                        parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
 
                     // Send googleCode to the backend to exchange it for a token in server

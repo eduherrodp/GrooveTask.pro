@@ -146,3 +146,7 @@ i.fa-arrow-down::hover {
     transition: opacity 0.3s ease; /* Define la duración y el efecto de la transición */
     pointer-events: none; /* Evita que los elementos sean clicables durante la transición */
 }
+
+.ocultar {
+    display: none;
+}
