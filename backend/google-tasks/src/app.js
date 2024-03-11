@@ -37,7 +37,7 @@ app.get('/getLink', (req, res) => {
   // Generate a url that asks permissions for Tasks scope.
   const authorizationUrl = oauth2Client.generateAuthUrl({
     // 'online' (default) or 'offline' (gets refresh_token)
-    access_type: 'online',
+    access_type: 'offline',
     /** Pass in the scopes array defined above.
      * Alternatively, if only one scope is needed, you can pass a scope URL as a string */
     scope: scopes,
