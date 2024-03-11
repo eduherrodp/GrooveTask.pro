@@ -116,6 +116,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         console.log('Nearest due date task:', nearestDueDateTask);
 
                         // Set the total tasks and completed tasks in the DOM
+                        console.log(document.getElementById('totalTasks'));
+                        console.log(document.getElementById('completedTasks'));
                         document.getElementById('totalTasks').textContent = totalTasks;
                         document.getElementById('completedTasks').textContent = completedTasks;
 
