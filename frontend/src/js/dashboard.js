@@ -62,9 +62,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     linkGoogleAccountSection.classList.add('fade-out');
                     setTimeout(() => {
                         linkGoogleAccountSection.style.setProperty('display', 'none');
-                        // Show principal section
-                        const principalSection = document.getElementById('principal');
-                        principalSection.style.setProperty('display', 'block');
                     }, 300);
                 }
 
