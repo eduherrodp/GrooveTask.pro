@@ -22,7 +22,7 @@ async function signup(req, res) {
   try {
     const user = await createUser(email, password);
     // also we need to add that user still don't vinculate their google account for using task api
-    await createUserInDatabase(user.uid, email, username, false);
+    await createUserInDatabase(user.uid, email, username, null , false);
 
     console.log("User registered:", user);
     res.status(200).json({ message: "User registered successfully", user });
