@@ -126,9 +126,18 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 async function getToken(req, res) {
-  const { googleCode } = req.params;
-  console.log("Google code:", googleCode);
-  res.status(200).json({ message: "Google code received" });
+  try {
+    const { code } = req.body;
+    console.log("Code:", code);
+
+    const { tokens } = await oAuth2Client.getToken(code);
+    oAuth2Client.setCredentials(tokens);
+
+    res.status(200).json({ message: "Token received successfully", tokens });
+  } catch (error) {
+    console.error("Error getting token:", error.message);
+    res.status(500).json({ error: error.message });
+  }
 }
 
 
