@@ -110,27 +110,8 @@ async function getToken(req, res) {
     const response = await tasks.tasklists.list();
     const tasklists = response.data.items;
 
-    // We just need store whit the following format
-    // id: string { → we need tasks.tasklists.id
-    //   title: string,
-    //   updated: string,
-    //   selfLink: string
-    //   tasks: [ → as parameter we need tasks.tasklists.id 
-    //     {
-    //       id: string,
-    //       title: string,
-    //       updated: string,
-    //       selfLink: string
-    //       status: "needsAction" | "completed", → status, due, notes need tasklist id and task id
-    //       due: string,
-    //       notes: string,
-    //     }
-    //   ]
-    // },
-    // id: setring { → of each tasklist
-    //   ...
-    // }
-    // [...]
+    // Array to store formatted tasklists
+    const formattedTasklists = [];
 
     // Iterate over each tasklist to get their tasks 
     for (const tasklist of tasklists) {
@@ -138,7 +119,7 @@ async function getToken(req, res) {
       const tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
       const tasks = tasksResponse.data.items;
 
-      // Format the tasklist of the actual list
+      // Format the tasks of the actual tasklist
       const formattedTasks = tasks.map(task => ({
         id: task.id,
         title: task.title,
@@ -149,22 +130,19 @@ async function getToken(req, res) {
         notes: task.notes,
       }));
 
-      // Format the actual list of tasks and add it to the formatted tasklist
-
-      const formattedTasksList = {
+      // Format the actual tasklist and add it to the formattedTasklists array
+      const formattedTasklist = {
         id: tasklist.id,
         title: tasklist.title,
         updated: tasklist.updated,
         selfLink: tasklist.selfLink,
         tasks: formattedTasks,
       };
+      formattedTasklists.push(formattedTasklist);
     }
 
-    // Send the formatted tasklist to the client
-
-    console.log(formattedTasksList);
-
-    res.status(200).json(formattedTasksList);
+    // Send the formatted tasklists to the client
+    res.status(200).json(formattedTasklists);
 
   } catch (error) {
     console.error("Error getting tasks:", error.message);
