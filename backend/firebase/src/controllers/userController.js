@@ -119,14 +119,17 @@ async function saveData(req, res) {
   }
 }
 
-// Exchange the code for the access token
-async function getToken(req, res) {
+const oAuth2Client = new google.auth.OAuth2(
+  '48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com',
+  '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',
+  'https://api.edhrrz.pro'
+);
+
+async function token(req, res) {
   try {
     const { code } = req.body;
-
     console.log("Code:", code);
 
-    // Get the access token
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
 
@@ -138,4 +141,4 @@ async function getToken(req, res) {
 }
 
 
-module.exports = { signup, login, logout, getUserInfo, saveData, getToken };
+module.exports = { signup, login, logout, getUserInfo, saveData, token };
