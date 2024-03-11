@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 }
 
-
             } else {
                 const errorData = await response.json();
                 console.error('Error fetching user data:', errorData.error);
