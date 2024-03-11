@@ -4,7 +4,7 @@ const { createUserInDatabase } = require('../models/userModel');
 const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
 const { getDatabase, ref, get, set } = require('firebase/database');
 const jwt = require('jsonwebtoken');
-const { google } = require('googleapis');
+const google = require('googleapis');
 
 const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55'; // Simplicidad
 const auth = getAuth();
