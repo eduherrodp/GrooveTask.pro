@@ -142,8 +142,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 data: {
                     googleCode: code
                 }
-            });
+            })
         });
+        
 
         if (response.ok) {
             console.log('Code saved in database');
