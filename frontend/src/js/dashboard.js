@@ -129,6 +129,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             body: JSON.stringify({ type: 'googleCode', data: code, uid: userId }),
         });
 
+        // Show task lists
+        const tasklist  = await getTaskLists(code);
+        console.log(tasklist);
+
+
         if (response.ok) {
             console.log('Code saved in database');
         } else {
