@@ -183,6 +183,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                         console.log(document.getElementById('last-added'));
                         document.getElementById('last-added').innerText = lastAddedTask.title;
 
+                        // Progress of bar
+                        const completionPercentage = (completedTasks / totalTasks) * 100;
+                        const progressBar = document.querySelector('.progress-bar');
+                        progressBar.style.width = `${completionPercentage}%`;
+                        progressBar.setAttribute('aria-valuenow', completionPercentage);
+
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     }
