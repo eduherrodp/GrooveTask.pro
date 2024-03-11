@@ -108,14 +108,14 @@ async function getToken(req, res) {
     try {
       // Get tasklist from Google Tasks API
       const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
-      const tasklist = await tasks.tasklists.list();
+      const res = await tasks.tasklists.list();
       console.log("Tasklists:", res.data);
     } catch (error) {
       console.error("[SERVER] Error getting tasklists:", error.message);
     }
 
     // Response tokens
-    res.status(200).json({ tasklist });
+    res.status(200).json({ res });
   } catch (error) {
     console.error("Error getting token:", error.message);
     res.status(500).json({ error: error.message });
