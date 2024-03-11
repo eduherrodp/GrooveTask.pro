@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
 
                         // When task nav link is clicked, hide the dashboard and show the tasks and vice versa
-                        const taskNavLink = document.getElementById('task');
+                        const taskNavLink = document.getElementById('tasks');
                         const dashboardNavLink = document.getElementById('dashboard');
                         const taskSection = document.getElementById('task-section');
                         const principal = document.getElementById('principal');
