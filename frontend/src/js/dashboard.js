@@ -214,7 +214,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Function to create a list of tasks for a task list
                         function createTaskList(taskList) {
                             const listContainer = document.createElement('div');
-                            const listTitle = document.createElement('h3').classList.add("p-1 bg-primary bg-gradient text-white rounded ps-3");
+                            // Add class p-1 bg-primary bg-gradient text-white rounded ps-3
+                            const listTitle = document.createElement('h3');
+                            listTitle.classList.add('p-1', 'bg-primary', 'bg-gradient', 'text-white', 'rounded', 'ps-3');
                             listTitle.textContent = taskList.title;
                             listContainer.appendChild(listTitle);
                             const taskListUl = document.createElement('ul');
