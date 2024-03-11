@@ -27,8 +27,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const email = userData.email;
                 const googleCode = userData.googleCode;
 
-                console.log('User data:', userData);
-
                 // Change the DOM, put username in all elements with class 'db-username'
                 const usernameElements = document.querySelectorAll('.db-username');
                 usernameElements.forEach(element => {
@@ -47,7 +45,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         },
                     }).catch(error => console.error('Error:', error.message));
                     if (response.ok) {
-                        console.log('Session ended');
                         window.location.href = '/login';
                     } else {
                         const errorData = await response.json();
@@ -64,8 +61,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
-
-                    console.log("Se enviará: ", googleCode);
 
                     // Send googleCode to the backend to exchange it for a token in server
                     const response = await fetch('https://db.edhrrz.pro/user/getToken', {
@@ -119,9 +114,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const data = await response.json();
                     const authorizationLink = data.link;
 
-                    // Redirect user to Google authorization page
-                    console.log('Redirecting to Google authorization page:', authorizationLink);
-
                     window.location.href = authorizationLink;
                 } else {
                     console.error('Error fetching authorization link:', response.statusText);
@@ -155,8 +147,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.history.replaceState({}, document.title, window.location.pathname);
         // Then reload the page
         window.location.reload();
-    } else {
-        console.error('Code not found in URL');
     }
-
 });
