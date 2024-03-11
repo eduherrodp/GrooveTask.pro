@@ -133,13 +133,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Code found in URL:', code);
         // If code is in the URL, save it in firebase https://db.edhrrz.pro/user/save
         const response = await fetch('https://db.edhrrz.pro/user/update', {
-            method: 'SET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
 
             // We also need to send uid in the URL to identify the user
-            body: JSON.stringify({ type: 'googleCode', data: code, uid: userId }),
+            body: JSON.stringify({ type: 'googleCode', data: googleCode, uid: userId }),
         });
 
         if (response.ok) {

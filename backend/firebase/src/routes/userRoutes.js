@@ -12,6 +12,6 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.get('/info/:uid', getUserInfo);
 router.post('/getToken', getToken);
-router.set('/update', update);
+router.post('/update', update);
 
 module.exports = router; 
