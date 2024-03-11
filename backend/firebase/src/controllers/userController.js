@@ -119,6 +119,25 @@ async function saveData(req, res) {
   }
 }
 
+// Exchange the code for the access token
+async function getToken(req, res) {
+  try {
+    const { code } = req.body;
+
+    console.log("Code:", code);
+
+    // Get the access token
+    const { tokens } = await oAuth2Client.getToken(code);
+    oAuth2Client.setCredentials(tokens);
+
+    res.status(200).json({ message: "Token received successfully" });
+  } catch (error) {
+    console.error("Error getting token:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
 const oAuth2Client = new google.auth.OAuth2(
   '48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com',
   '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',
@@ -148,4 +167,4 @@ async function getTaskLists(req, res) {
 }
 
 
-module.exports = { signup, login, logout, getUserInfo, saveData, getTaskLists };
+module.exports = { signup, login, logout, getUserInfo, saveData, getToken };

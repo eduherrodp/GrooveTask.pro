@@ -64,26 +64,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
-                }
 
-                try {
-                    const response = await fetch('https://db.edhrrz.pro/user/tasklist', {
+                    // Send googleCode to the backend to exchange it for a token in server
+                    const response = await fetch('https://api.edhrrz.pro/getToken', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ code: googleCode })
+                        body: JSON.stringify({ googleCode }),
                     });
-            
+
                     if (response.ok) {
                         const data = await response.json();
-                        console.log('Task lists:', data);
-                    } else {
-                        console.error('Error getting task lists:', response.statusText);
+                        const token = data.token;
+                        console.log('Token:', token);
+
+                        // Save the token in localStorage
+                        localStorage.setItem('token', token);
                     }
-                } catch (error) {
-                    console.error('Error getting task lists:', error.message);
                 }
+
 
             } else {
                 const errorData = await response.json();
