@@ -93,22 +93,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                         console.log('Tokens:', tokens);
 
                         // Use the tokens to make a request to get the user's tasks lists
-                       // HTTP request → GET https://tasks.googleapis.com/tasks/v1/users/@me/lists 
-                        const response = await fetch('https://tasks.googleapis.com/tasks/v1/users/@me/lists', {
-                            method: 'GET',
-                            headers: {
-                                'Authorization': `Bearer ${tokens.access_token}`,
-                                'Content-Type': 'application/json'
-                            },
-                        });
 
-                        if (response.ok) {
-                            const data = await response.json();
-                            console.log('Tasks lists:', data);
-                        } else {
-                            console.error('Error fetching tasks lists:', response.statusText);
+                        try {
+                            const response = await fetch('https://www.googleapis.com/tasks/v1/users/@me/lists', {
+                                method: 'GET',
+                                headers: {
+                                    'Authorization': `Bearer ${tokens.access_token}`,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            if (response.ok) {
+                                const data = await response.json();
+                                console.clear(); 
+                                console.log('Tasks lists:', data);
+                            } else {
+                                console.error('Error fetching tasks lists:', response.statusText);
+                            }
+                        } catch (error) {
+                            console.error('Error fetching tasks lists:', error.message);
                         }
-                        
+
                     }
                 }
 
