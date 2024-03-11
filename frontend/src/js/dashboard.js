@@ -78,10 +78,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        const tokens = data.tokens;
-                        console.log('Tokens:', tokens);
                         
-                        // Get tasklists from the server
+                        console.log('Data:', data);
+
+                        // Set lists
+                        const cardBody = document.querySelector('#my-lists .card-body');
+                        cardBody.innerHTML = '';
+                        data.TaskLists.forEach(taskList => {
+                            const cardText = document.createElement('p');
+                            cardText.classList.add('card-text');
+                            cardText.textContent = taskList.title;
+                            cardBody.appendChild(cardText);
+                        })
+                        
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     }

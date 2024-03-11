@@ -114,7 +114,6 @@ async function getToken(req, res) {
       console.error("[SERVER] Error getting tasklists:", error.message);
     }
 
-
     // Response tokens
     res.status(200).json({ tokens });
   } catch (error) {
