@@ -138,33 +138,4 @@ async function getToken(req, res) {
 }
 
 
-const oAuth2Client = new google.auth.OAuth2(
-  '48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com',
-  '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',
-  'https://api.edhrrz.pro'
-);
-
-// getTaskLists function is used to get the task lists from the user's Google account
-async function getTaskLists(req, res) {
-  try {
-    const { code } = req.body;
-
-    console.log("Code:", code);
-
-    // Get the access token
-    const { tokens } = await oAuth2Client.getToken(code);
-    oAuth2Client.setCredentials(tokens);
-
-    // Get the task lists
-    const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
-    const taskLists = await tasks.tasklists.list();
-
-    res.status(200).json(taskLists.data);
-  } catch (error) {
-    console.error("Error getting task lists:", error.message);
-    res.status(500).json({ error: error.message });
-  }
-}
-
-
 module.exports = { signup, login, logout, getUserInfo, saveData, getToken };
