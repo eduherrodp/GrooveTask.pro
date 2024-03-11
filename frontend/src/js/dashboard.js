@@ -67,58 +67,51 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     console.log("Se enviará: ", googleCode);
 
-                    if (!localStorage.getItem('googleTokens')) {
-                        // Send googleCode to the backend to exchange it for a token in server
-                        const response = await fetch('https://db.edhrrz.pro/user/getToken', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ code: googleCode }),
-                        });
+                    // Send googleCode to the backend to exchange it for a token in server
+                    const response = await fetch('https://db.edhrrz.pro/user/getToken', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
 
-                        if (response.ok) {
-                            const data = await response.json();
-                            const tokens = data.tokens;
-                            console.log('Tokens:', tokens);
+                    // Send googleCode to the backend to exchange it for a token in server
+                    const res = await fetch('https://db.edhrrz.pro/user/getToken', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ code: googleCode }),
+                    });
 
-                            // Save tokens in localStorage
-                            localStorage.setItem('googleTokens', JSON.stringify(tokens));
-                        } else {
-                            console.error('Error getting tokens:', response.statusText);
-                        }
-                    } else {
-                        // Here we can use the tokens from localStorage for the Google API Task
-                        const tokens = JSON.parse(localStorage.getItem('googleTokens'));
+                    if (res.ok) {
+                        const data = await response.json();
+                        const tokens = data.tokens;
                         console.log('Tokens:', tokens);
 
-                        // Use the tokens to make a request to get the user's tasks lists
-
-                        try {
-                            const accessToken = tokens.access_token;
-                            const apiUrl = 'https://www.googleapis.com/tasks/v1/users/@me/lists';
-                            const response = await fetch(apiUrl, {
-                                method: 'GET',
-                                headers: {
-                                    'Authorization': `Bearer ${accessToken}`,
-                                    'Content-Type': 'application/json'
-                                }
-                            });
-                            if (response.ok) {
-                                const data = await response.json();
-                                console.clear(); 
-                                console.log('Tasks lists:', data);
-                            } else {
-                                console.error('Error fetching tasks lists:', response.statusText);
-                            }
-                        } catch (error) {
-                            console.error('Error fetching tasks lists:', error.message);
-                        }
-
+                        const access_token = tokens.access_token;
+                    } else {
+                        console.error('Error getting tokens:', response.statusText);
                     }
+
+                    // Use the get user tasklists from googleaapis
+                    const responseTaskLists = await fetch('https://www.googleapis.com/tasks/v1/users/@me/lists', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${access_token}`,
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (responseTaskLists.ok) {
+                        const data = await responseTaskLists.json();
+                        console.log('Task lists:', data);
+                    } else {
+                        console.error('Error getting task lists:', responseTaskLists.statusText);
+                    }
+                    
+                
                 }
-
-
             } else {
                 const errorData = await response.json();
                 console.error('Error fetching user data:', errorData.error);
