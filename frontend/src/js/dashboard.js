@@ -248,6 +248,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const taskNavLink = document.getElementById('tasks');
                         const dashboardNavLink = document.getElementById('dashboard');
                         const principal = document.getElementById('principal');
+                        
                         taskNavLink.addEventListener('click', () => {
                             principal.classList.add('ocultar');
                             taskSection.classList.remove('ocultar');
