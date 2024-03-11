@@ -2,6 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
+
+
     // Check if code is in the URL
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -137,3 +139,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 });
+
+// exchangeCodeForToken
+async function getTaskLists(code) {
+    // Send the code to the server to exchange it for a token
+    const response = await fetch('https://api.edhrrz.pro/user/tasklist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ code: code})
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        const token = data.token;
+        console.log('Token:', token);
+        return token;
+    } else {
+        console.error('Error getting Task list:', response.statusText);
+    }
+
+    return null;
+}

@@ -4,9 +4,11 @@ const { createUserInDatabase } = require('../models/userModel');
 const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
 const { getDatabase, ref, get, set } = require('firebase/database');
 const jwt = require('jsonwebtoken');
+const { google } = require('googleapis');
 
 const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55'; // Simplicidad
 const auth = getAuth();
+
 
 // generateToken function is used to generate a session token
 function generateToken(user) {
@@ -99,7 +101,7 @@ async function saveData(req, res) {
     // Get user information from the database
     const snapshot = await get(userRef);
     const userData = snapshot.val();
-      
+
     if (userData) {
       // Save the data in the user
       userData[type] = data;
@@ -117,4 +119,29 @@ async function saveData(req, res) {
   }
 }
 
-module.exports = { signup, login, logout, getUserInfo, saveData };
+const oAuth2Client = new google.auth.OAuth2(
+  '48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com',
+  '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',
+  'https://api.edhrrz.pro'
+);
+
+// getTaskLists function is used to get the task lists from the user's Google account
+async function getTaskLists(code) {
+  try {
+    const {tokens } = await oAuth2Client.getToken(code);
+    oAuth2Client.setCredentials(tokens);
+    console.log('Tokens:', tokens);
+    console.log('Refresh token:', tokens.refresh_token);
+
+    const tasklists = google.tasks({ version: 'v1', auth: oAuth2Client });
+    const res = await tasklists.tasklists.list();
+
+    // Send the task lists to the client
+    res.status(200).json(res.data);
+  } catch (error) {
+    console.error("Error getting task lists:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = { signup, login, logout, getUserInfo, saveData, getTaskLists };
