@@ -139,12 +139,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
             body: JSON.stringify({
                 uid: userId,
-                data: {
-                    googleCode: code
-                }
+                type: 'googleCode',
+                data: code
             })
         });
-        
+
 
         if (response.ok) {
             console.log('Code saved in database');

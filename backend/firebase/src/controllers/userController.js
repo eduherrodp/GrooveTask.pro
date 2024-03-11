@@ -107,17 +107,19 @@ async function getToken(req, res) {
 
 }
 
-// update some data in the user 
+// update some data in the user, we need type of data to update and the new data
 async function update(req, res) {
   try {
-    const { uid, data } = req.body;
-
+    const { uid, type, data } = req.body;
     const userRef = ref(getDatabase(), `users/${uid}`);
-    await set(userRef, data);
 
-    res.status(200).json({ message: "Data saved successfully" });
+    await set(userRef, {
+      [type]: data
+    });
+
+    res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
-    console.error("Error saving data:", error.message);
+    console.error("Error updating user:", error.message);
     res.status(500).json({ error: error.message });
   }
 }
