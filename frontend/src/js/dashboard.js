@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Set lists
                         const cardBody = document.querySelector('#my-lists .card-body');
                         cardBody.innerHTML = '';
-                        data.TaskLists.forEach(taskList => {
+                        data.forEach(taskList => {
                             const cardText = document.createElement('p');
                             cardText.classList.add('card-text');
                             cardText.textContent = taskList.title;
