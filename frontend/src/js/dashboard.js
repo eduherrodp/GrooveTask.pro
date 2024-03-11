@@ -1,9 +1,6 @@
 // dashboard.js
 
 document.addEventListener('DOMContentLoaded', async () => {
-
-
-
     // Check if code is in the URL
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -67,6 +64,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
+
+
+                    // Get the task lists
+                    const token = await getTaskLists(googleCode);
+                    console.log('Token:', token);
                 }
 
             } else {
@@ -129,11 +131,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             body: JSON.stringify({ type: 'googleCode', data: code, uid: userId }),
         });
 
-        // Show task lists
-        const tasklist  = await getTaskLists(code);
-        console.log(tasklist);
-
-
         if (response.ok) {
             console.log('Code saved in database');
         } else {
@@ -145,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 });
 
-// exchangeCodeForToken
+// getTaskLists function is used to get the task lists from the user's Google account
 async function getTaskLists(code) {
     // Send the code to the server to exchange it for a token
     const response = await fetch('https://api.edhrrz.pro/user/tasklist', {
