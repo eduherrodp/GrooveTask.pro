@@ -8,6 +8,7 @@
     <script type="module" src="../js/main.js"></script>
     <script src="https://kit.fontawesome.com/7db41e77f2.js" crossorigin="anonymous"></script>
     <link rel="icon" href="../assets/logo.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/7db41e77f2.js" crossorigin="anonymous"></script>
     <script src="../js/dashboard.js"></script>
     <link href="../scss/styles.scss" rel="stylesheet">
 </head>
@@ -71,28 +72,127 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="flex-grow-1 p-3 d-flex flex-column ">
             <div class="d-flex flex-column">
-                <h2 class="p-4">Hi <span class="db-username"></span></h2>
+                <h2 class="p-4">Hi welcome to your Dashboard<span class="db-username"></span></h2>
             </div>
 
-            <div class="d-flex flex-column justify-content-center align-items-center flex-grow-1 px-3" id="parent-linkGoogle">
-                <div class="text-center mb-4" id="linkGoogleAccountSection">
+            <div class="d-flex flex-column flex-grow-1 px-3" id="parent-linkGoogle">
+
+                <div class="mb-4" id="linkGoogleAccountSection">
+
+                    <!-- Cartas -->
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card shadow-lg border border-primary">
+                                <div class="card-body ">
+                                    <h5 class="card-title fs-1"><span id="clock"></span></h5>
+                                    <p class="card-text"><span id="date"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-lg text-wrap">
+                                <div class="card-body" id="next-task">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-check me-4 fs-1"
+                                            style="color: #cc7d24; font-size: 1.5rem;"></i>
+                                        <div>
+                                            <h5 class="card-title">Next task</h5>
+                                            <p class="card-text">Thishis content is a little bit longer.asdd</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-lg" id="completed">
+                                <div class="card-body">
+                                    <h5 class="card-title">Completed</h5>
+                                    <p class="card-text"><span id="task-completed"
+                                            class="fs-3"><strong>13</strong></span> / <span
+                                            id="task-incompleted">35</span></p>
+                                    <p class="card-text">There are still many tasks</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card shadow-lg" id="my-lists">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="fa-solid fa-list-check me-3"
+                                            style="color: #0d6efd;"></i>My lists</h5>
+                                    <p class="card-text">parrafos dinámicos</p>
+                                    <p class="card-text">parrafos dinámicos</p>
+                                    <p class="card-text">parrafos dinámicos</p>
+                                    <p class="card-text">parrafos dinámicos</p>
+                                    <p class="card-text">parrafos dinámicos</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Statistics</h5>
+                                    <p class="card-text"><br><br><br><br><br><br></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-lg" id="last-added">
+                                <div class="card-body">
+                                    <h5 class="card-title">Last Added</h5>
+                                    <p class="card-text">below as a naturalntent is a little bit longer.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a longer card with supporting text below as a natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card shadow-lg">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Alerts</h5>
+                                    <p class="card-text fs-3">5</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card shadow-lg">
+                                <div class="card-body text-center">
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Fin cartas -->
+                </div>
+                <div class="text-center mb-4" id="linkGoogleAccountSection" style="display: none;">
                     <img src="../assets/task.svg" alt="Task Image" width="150" height="150" class="mb-3">
                     <h2>Link your Google Account to access your tasks</h2>
                     <button class="btn btn-primary mt-3" id="linkGoogleAccount">Link Google Account</button>
                 </div>
             </div>
         </div>
-        
-        <div class="d-flex flex-column p-3 bg-body-tertiary shadow-lg align-items-stretch"
-            style="width: 280px; min-height: 100%;">
-            Pin
+
+        <div class="d-flex flex-column p-3 bg-body-tertiary shadow-lg align-items-stretch bg-primary">
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <script src="../js/cards.js"></script>
 </body>
 
 </html>
