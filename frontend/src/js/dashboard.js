@@ -67,8 +67,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     console.log("Se enviará: ", googleCode);
 
+                    // Google API Task
                     // Send googleCode to the backend to exchange it for a token in server
-                    const res = await fetch('https://db.edhrrz.pro/user/getToken', {
+                    const response = await fetch('https://db.edhrrz.pro/user/getToken', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -76,17 +77,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                         body: JSON.stringify({ code: googleCode }),
                     });
 
-                    if (res.ok) {
+                    if (response.ok) {
                         const data = await response.json();
                         const tokens = data.tokens;
                         console.log('Tokens:', tokens);
-
-                        const access_token = tokens.access_token;
+                        console.log('access_token', tokens.access_token);
+                        // Save tokens in localStorage
+                        localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     } else {
                         console.error('Error getting tokens:', response.statusText);
-                    }               
-                    console.log('Access token:', access_token);     
-                
+                    }
                 }
             } else {
                 const errorData = await response.json();
@@ -157,5 +157,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         console.error('Code not found in URL');
     }
-
 });
