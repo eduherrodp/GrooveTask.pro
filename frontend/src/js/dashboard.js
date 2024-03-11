@@ -66,6 +66,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }, 300);
                 }
 
+                try {
+                    const response = await fetch('https://db.edhrrz.pro/user/tasklist', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ code: googleCode })
+                    });
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Task lists:', data);
+                    } else {
+                        console.error('Error getting task lists:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error getting task lists:', error.message);
+                }
+
             } else {
                 const errorData = await response.json();
                 console.error('Error fetching user data:', errorData.error);
@@ -135,25 +154,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.history.replaceState({}, document.title, window.location.pathname);
     } else {
         console.error('Code not found in URL');
-    }
-
-    try {
-        const response = await fetch('https://db.edhrrz.pro/user/tasklist', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ code: code })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Task lists:', data);
-        } else {
-            console.error('Error getting task lists:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error getting task lists:', error.message);
     }
 
 });
