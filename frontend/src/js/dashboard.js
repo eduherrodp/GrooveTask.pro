@@ -129,15 +129,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                         
                         // Parse the data to int
-                        const _pendingTasks = parseInt(pendingTasks);
-                        const _totalTasks = parseInt(totalTasks);
-                        const _completedTasks = _totalTasks - _pendingTasks;
+                        const pendingTasks = totalTasks - completedTasks;
 
                         const chart_data = {
                             labels: ['Tareas completadas', 'Tareas pendientes'],
                             datasets: [{
                                 label: 'Tareas',
-                                data: [_completedTasks, _pendingTasks],
+                                data: [completedTasks, pendingTasks],
                                 backgroundColor: [
                                     'rgba(75, 192, 192, 0.2)',
                                     'rgba(255, 99, 132, 0.2)'
