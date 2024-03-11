@@ -5,6 +5,7 @@ const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
 const { getDatabase, ref, get, set } = require('firebase/database');
 const jwt = require('jsonwebtoken');
 const { google } = require('googleapis');
+const tasks = google.tasks('v1');
 
 const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55'; // Simplicidad
 const auth = getAuth();
@@ -94,7 +95,7 @@ const oAuth2Client = new google.auth.OAuth2(
 
 async function getToken(req, res) {
   try {
-    console.log("Code received:", req.body);
+    // console.log("Code received:", req.body);
     const { code } = req.body;
     console.log("Code received:", code);
 
@@ -102,6 +103,18 @@ async function getToken(req, res) {
     oAuth2Client.setCredentials(tokens);
 
     console.log("Tokens:", tokens);
+
+    // Here we need to get tasklists from the user
+    try {
+      // Get tasklist from Google Tasks API
+      const tasks = google.tasks({ version: 'v1', auth: oAuth2Client });
+      const res = await tasks.tasklists.list();
+      console.log("Tasklists:", res.data);
+    } catch (error) {
+      console.error("[SERVER] Error getting tasklists:", error.message);
+    }
+
+
     // Response tokens
     res.status(200).json({ tokens });
   } catch (error) {

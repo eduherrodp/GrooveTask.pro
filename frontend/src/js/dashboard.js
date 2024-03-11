@@ -80,7 +80,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const data = await response.json();
                         const tokens = data.tokens;
                         console.log('Tokens:', tokens);
-
+                        
+                        // Get tasklists from the server
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
                     }
