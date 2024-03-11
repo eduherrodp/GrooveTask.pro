@@ -111,16 +111,16 @@ async function getToken(req, res) {
     const tasklists = response.data.items;
 
     // Array to store formatted tasklists
-    const formattedTasklists = [];
+    var formattedTasklists = [];
 
     // Iterate over each tasklist to get their tasks 
-    for (const tasklist of tasklists) {
+    for (var tasklist of tasklists) {
       // Get task of the actual tasklist
-      const tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
-      const tasks = tasksResponse.data.items;
+      var tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
+      var tasks = tasksResponse.data.items;
 
       // Format the tasks of the actual tasklist
-      const formattedTasks = tasks.map(task => ({
+      var formattedTasks = tasks.map(task => ({
         id: task.id,
         title: task.title,
         updated: task.updated,
@@ -131,7 +131,7 @@ async function getToken(req, res) {
       }));
 
       // Format the actual tasklist and add it to the formattedTasklists array
-      const formattedTasklist = {
+      var formattedTasklist = {
         id: tasklist.id,
         title: tasklist.title,
         updated: tasklist.updated,
