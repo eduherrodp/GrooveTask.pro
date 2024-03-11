@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        console.log('Token:', data.token);
+                        console.log('Token:', data.message);
                     }
                 }
 
