@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }).catch(error => console.error('Error:', error.message));
                     if (response.ok) {
                         console.log('Session ended');
-                        // window.location.href = '/login'; *********************************************
+                        window.location.href = '/login';
                     } else {
                         const errorData = await response.json();
                         console.error('Error ending session:', errorData.error);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // We need to hide the linkGoogleAccountSection if the user already has a googleCode
                 if (googleCode !== null && googleCode !== '') {
-                    const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection');
+                    const linkGoogleAccountSection = document.getElementById('linkGoogleAccountSection-G');
                     linkGoogleAccountSection.classList.add('fade-out');
                     setTimeout(() => {
                         linkGoogleAccountSection.style.setProperty('display', 'none');
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         console.error('Token or user ID not found in localStorage');
         // User is not logged in, redirect to login page
-        // window.location.href = 'https://edhrrz.pro/pages/login.html'; →*************************************************
+        window.location.href = 'https://edhrrz.pro/pages/login.html';
     }
 
 
