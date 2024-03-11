@@ -80,10 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        const token = data.token;
-                        console.log('Token:', token);
-                        // Save the token in localStorage
-                        localStorage.setItem('token', token);
+                        console.log('Token:', data.token);
                     }
                 }
 
