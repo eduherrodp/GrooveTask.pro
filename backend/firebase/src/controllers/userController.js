@@ -133,7 +133,7 @@ async function getToken(req, res) {
     // [...]
 
     // Iterate over each tasklist to get their tasks 
-    for (const tasklist of taskLists) {
+    for (const tasklist of tasklists) {
       // Get task of the actual tasklist
       const tasksResponse = await tasks.tasks.list({ tasklist: tasklist.id });
       const tasks = tasksResponse.data.items;
