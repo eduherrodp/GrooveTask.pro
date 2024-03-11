@@ -4,7 +4,7 @@ const { createUserInDatabase } = require('../models/userModel');
 const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
 const { getDatabase, ref, get, set } = require('firebase/database');
 const jwt = require('jsonwebtoken');
-const google = require('googleapis');
+const {google} = require('googleapis');
 
 const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55'; // Simplicidad
 const auth = getAuth();
@@ -128,7 +128,7 @@ const oAuth2Client = new google.auth.OAuth2(
 // getTaskLists function is used to get the task lists from the user's Google account
 async function getTaskLists(code) {
   try {
-    const {tokens } = await oAuth2Client.getToken(code);
+    const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
     console.log('Tokens:', tokens);
     console.log('Refresh token:', tokens.refresh_token);
