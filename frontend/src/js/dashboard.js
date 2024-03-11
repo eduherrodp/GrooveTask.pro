@@ -1,20 +1,22 @@
+// dashboard.js
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Check if code is in the URL
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
 
-    // Obtener el token y el ID del usuario del almacenamiento local
-    let token = localStorage.getItem('token');
+    // Obtener el token_firestore y el ID del usuario del almacenamiento local
+    const token_firestore = localStorage.getItem('token_firestore');
     const userId = localStorage.getItem('user_');
 
-    if (token && userId) {
-        console.log('Token and user ID found in localStorage: ', token, userId);
+    if (token_firestore && userId) {
+        console.log('Token and user ID found in localStorage: ', token_firestore, userId);
         try {
             // Enviar una solicitud al servidor para obtener la información del usuario
             const response = await fetch(`https://db.edhrrz.pro/user/info/${userId}`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${token_firestore}`,
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include'
@@ -33,12 +35,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 document.getElementById('singout').addEventListener('click', async () => {
                     // End the session
-                    localStorage.removeItem('token');
+                    localStorage.removeItem('token_firestore');
                     localStorage.removeItem('user_');
                     const response = await fetch('https://db.edhrrz.pro/user/logout', {
                         method: 'GET',
                         headers: {
-                            'Authorization': `Bearer ${token}`,
+                            'Authorization': `Bearer ${token_firestore}`,
                             'Content-Type': 'application/json'
                         },
                     }).catch(error => console.error('Error:', error.message));
@@ -60,7 +62,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById('principal').classList.remove('ocultar');
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
+
+                    // Send googleCode to the backend to exchange it for a token in server
+                    const response = await fetch('https://db.edhrrz.pro/user/getToken', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ code: googleCode }),
+                    });
+
+                    // CONCLUYO FETCH
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const tokens = data.tokens;
+                        console.log('Tokens:', tokens);
+
+                        // Save tokens in localStorage
+                        localStorage.setItem('googleTokens', JSON.stringify(tokens));
+                    }
                 }
+
+
             } else {
                 const errorData = await response.json();
                 console.error('Error fetching user data:', errorData.error);
@@ -74,29 +98,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'https://edhrrz.pro/pages/login.html';
     }
 
-    // Event listener for linking Google account    
-    if (code) {
-        console.log('Code found in URL:', code);
-        // Update the user's googleCode in the database
-        const response = await fetch('https://db.edhrrz.pro/user/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ uid: userId, type: 'googleCode', data: code }),
-        });
-
-        if (response.ok) {
-            console.log('Code saved in database');
-        } else {
-            console.error('Error saving code in database:', response.statusText);
-        }
-
-        // Remove the code from the URL
-        window.history.replaceState({}, document.title, window.location.pathname);
-        // Then reload the page
-        window.location.reload();
-    }
 
     const linkGoogleAccountButton = document.getElementById('linkGoogleAccount');
     if (linkGoogleAccountButton) {
@@ -122,5 +123,30 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Error fetching authorization link:', error.message);
             }
         });
+    }
+
+    // Event listener for linking Google account    
+    if (code) {
+        console.log('Code found in URL:', code);
+        // Update the user's googleCode in the database
+        const response = await fetch('https://db.edhrrz.pro/user/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ uid: userId, type: 'googleCode', data: code }),
+        });
+
+
+        if (response.ok) {
+            console.log('Code saved in database');
+        } else {
+            console.error('Error saving code in database:', response.statusText);
+        }
+
+        // Remove the code from the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+        // Then reload the page
+        window.location.reload();
     }
 });
