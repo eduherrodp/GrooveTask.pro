@@ -150,3 +150,7 @@ i.fa-arrow-down::hover {
 .ocultar {
     display: none;
 }
+#tasks-section {
+    max-height: 100vh;
+    overflow-y: auto; /* habilita el desplazamiento vertical */
+}
