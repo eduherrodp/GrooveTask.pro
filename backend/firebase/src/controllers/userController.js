@@ -101,12 +101,8 @@ async function getToken(req, res) {
     oAuth2Client.setCredentials(tokens);
 
     console.log("Tokens:", tokens);
-
-    // Save tokens in the database inside the user collection
-    const userRef = ref(getDatabase(), `users/${uid}/tokens`);
-    await set(userRef, tokens);
-
-    res.status(200).json({ message: "Token obtained successfully", tokens });
+    // Response tokens
+    res.status(200).json({ tokens });
   } catch (error) {
     console.error("Error getting token:", error.message);
     res.status(500).json({ error: error.message });
