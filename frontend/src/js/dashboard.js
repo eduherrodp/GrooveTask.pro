@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     setTimeout(() => {
                         linkGoogleAccountSection.style.display = 'none';
                         const parentLinkGoogleAccountSection = document.getElementById('parent-linkGoogle');
-                        document.getElementsById('principal').classList.remove('ocultar');
+                        document.getElementById('principal').classList.remove('ocultar');
                         parentLinkGoogleAccountSection.classList.remove('justify-content-center', 'align-items-center');
                     }, 300);
 
