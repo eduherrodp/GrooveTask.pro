@@ -116,11 +116,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById('totalTasks').textContent = totalTasks;
                         document.getElementById('completedTasks').textContent = completedTasks;
 
-                        // Set the nearest due date task title in the DOM
-                        document.querySelector('#next-task .card-title').textContent = nearestDueDateTask ? nearestDueDateTask.title : 'No tasks';
-
                         // Set the nearest due date task in the DOM
-                        document.getElementById('nearestDueDateTask').textContent = nearestDueDateTask ? nearestDueDateTask.title : 'No tasks';
+                        document.getElementById('nearestDueDateTask').innerText = nearestDueDateTask ? nearestDueDateTask.title : 'No tasks found';
 
                         // Save tokens in localStorage
                         localStorage.setItem('googleTokens', JSON.stringify(tokens));
