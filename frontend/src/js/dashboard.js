@@ -195,15 +195,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // When task nav link is clicked, hide the dashboard and show the tasks and vice versa
                         const taskNavLink = document.getElementById('tasks');
                         const dashboardNavLink = document.getElementById('dashboard');
-                        const taskSection = document.getElementById('task-section');
+                        const taskSection = document.getElementById('tasks-section');
                         const principal = document.getElementById('principal');
                         taskNavLink.addEventListener('click', () => {
                             principal.classList.add('ocultar');
                             taskSection.classList.remove('ocultar');
+                            // Change aria-current attribute
+                            taskNavLink.setAttribute('aria-current', 'page');
                         });
                         dashboardNavLink.addEventListener('click', () => {
                             taskSection.classList.add('ocultar');
                             principal.classList.remove('ocultar');
+                            // Change aria-current attribute
+                            taskNavLink.removeAttribute('aria-current');
                         });
                         
                     }
