@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         body: JSON.stringify({ googleCode }),
                     });
 
+                    // CONCLUYO FETCH
+
                     if (response.ok) {
                         const data = await response.json();
                         const token = data.token;
