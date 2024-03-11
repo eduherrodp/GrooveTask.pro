@@ -189,13 +189,51 @@ document.addEventListener('DOMContentLoaded', async () => {
                         progressBar.style.width = `${completionPercentage}%`;
                         progressBar.setAttribute('aria-valuenow', completionPercentage);
 
+                        // Add dinamic data to the dashboard, create a single list but categorized them by tasklist,, identify the tasklist by the title, in the task show updated and due date, and the status of the task
+                        const taskSection = document.getElementById('tasks-section');
+                        const taskList = document.createElement('ul');
+                        taskList.classList.add('list-group');
+                        taskSection.appendChild(taskList);
+
+                        data.forEach(taskList => {
+                            const taskListTitle = document.createElement('h2');
+                            taskListTitle.textContent = taskList.title;
+                            taskListTitle.classList.add('tasklist-title');
+                            taskList.appendChild(taskListTitle);
+
+                            taskList.tasks.forEach(task => {
+                                const taskItem = document.createElement('li');
+                                taskItem.classList.add('list-group-item');
+                                taskItem.classList.add('d-flex');
+                                taskItem.classList.add('justify-content-between');
+                                taskItem.classList.add('align-items-center');
+                                taskList.appendChild(taskItem);
+
+                                const taskTitle = document.createElement('span');
+                                taskTitle.textContent = task.title;
+                                taskItem.appendChild(taskTitle);
+
+                                const taskStatus = document.createElement('span');
+                                taskStatus.textContent = task.status;
+                                taskItem.appendChild(taskStatus);
+
+                                const taskUpdated = document.createElement('span');
+                                taskUpdated.textContent = task.updated;
+                                taskItem.appendChild(taskUpdated);
+
+                                const taskDue = document.createElement('span');
+                                taskDue.textContent = task.due;
+                                taskItem.appendChild(taskDue);
+                            });
+                        });
+
+
                         // Save tokens in localStorage
                         // localStorage.setItem('googleTokens', JSON.stringify(tokens));
 
                         // When task nav link is clicked, hide the dashboard and show the tasks and vice versa
                         const taskNavLink = document.getElementById('tasks');
                         const dashboardNavLink = document.getElementById('dashboard');
-                        const taskSection = document.getElementById('tasks-section');
                         const principal = document.getElementById('principal');
                         taskNavLink.addEventListener('click', () => {
                             principal.classList.add('ocultar');
