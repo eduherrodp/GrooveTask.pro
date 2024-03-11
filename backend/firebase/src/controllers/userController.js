@@ -136,6 +136,8 @@ async function getTaskLists(code) {
     const tasklists = google.tasks({ version: 'v1', auth: oAuth2Client });
     const res = await tasklists.tasklists.list();
 
+    console.log('Task lists:', res.data.items);
+
     // Send the task lists to the client
     res.status(200).json(res.data);
   } catch (error) {
