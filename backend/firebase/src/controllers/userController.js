@@ -4,7 +4,7 @@ const { createUserInDatabase } = require('../models/userModel');
 const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
 const { getDatabase, ref, get, set } = require('firebase/database');
 const jwt = require('jsonwebtoken');
-const {google} = require('googleapis');
+const { google } = require('googleapis');
 
 const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55'; // Simplicidad
 const auth = getAuth();
@@ -126,9 +126,18 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 async function getToken(req, res) {
- const { code } = req.body;
-  console.log('Code:', code);
-  res.status(200).json({ message: "Code received successfully" });
+  try {
+    const { code } = req.body;
+
+    const { tokens } = await oAuth2Client.getToken(code);
+    oAuth2Client.setCredentials(tokens);
+
+    res.status(200).json({ message: "Token obtained successfully", tokens });
+  } catch (error) {
+    console.error("Error getting token:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+
 }
 
 
