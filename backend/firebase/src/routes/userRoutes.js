@@ -1,4 +1,11 @@
 // userRoutes.js
+/**
+ * @fileoverview Defines routes for user-related operations such as authentication, registration, session management, and user data retrieval/update.
+ * @module userRoutes
+ * @requires express
+ * @requires ../controllers/userController
+ */
+
 const express = require('express');
 const router = express.Router();
 const { signup, getUserInfo, token } = require('../controllers/userController');

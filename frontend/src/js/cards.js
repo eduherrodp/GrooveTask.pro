@@ -5,11 +5,9 @@ function updateClock() {
     var seconds = now.getSeconds();
     var ampm = hours >= 12 ? 'PM' : 'AM';
 
-    // Convertir de formato de 24 horas a 12 horas
     hours = hours % 12;
     hours = hours ? hours : 12; // La hora '0' debería mostrar '12' en lugar de '0'
 
-    // Asegurarse de que los números tengan siempre dos dígitos
     hours = padZero(hours);
     minutes = padZero(minutes);
     seconds = padZero(seconds);
@@ -34,9 +32,6 @@ function updateClock() {
     document.getElementById('date').textContent = dateString;
   }
 
-  //
-
-  // Función auxiliar para asegurarse de que los números tengan dos dígitos
   function padZero(num) {
     return (num < 10 ? '0' : '') + num;
   }

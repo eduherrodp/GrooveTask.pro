@@ -6,18 +6,37 @@ const { getDatabase, ref, get, set } = require('firebase/database');
 const jwt = require('jsonwebtoken');
 const { google } = require('googleapis');
 const tasks = google.tasks('v1');
+/**
+ * Secret key used for generating session tokens.
+ * @constant {string}
+ */
 
+const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55';
 
-const secretKey = 'ZxWXV@rcUiRG9BU#s2T323V55'; // Simplicidad
+/**
+ * Firebase authentication instance.
+ * @constant {object}
+ */
 const auth = getAuth();
 
 
-// generateToken function is used to generate a session token
+/**
+ * generateToken - Generates a session token for given user ID.
+ * @param {string} user - User ID.
+ * @returns {string} Session token.
+ */
 function generateToken(user) {
   return jwt.sign({ userId: user }, secretKey, { expiresIn: '1h' }); // Expires in 1 hour
 }
 
-// Controller to register a new user
+
+
+/**
+ * singup - Registers a new user.
+ * @param {object} req - get the request object from the client: email, password, username
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} - Promise object that represents the asynchronous operation.
+ */
 async function signup(req, res) {
   const { email, password, username } = req.body;
   const { googleCode } = '';
@@ -35,7 +54,12 @@ async function signup(req, res) {
   }
 }
 
-// Controller to log in a user
+/**
+ * login - Logs in a user.
+ *  @param {object} req - get the request object from the client: email, password
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} - Promise object that represents the asynchronous operation.
+ */
 async function login(req, res) {
   const { email, password } = req.body;
   try {
@@ -55,7 +79,11 @@ async function login(req, res) {
   }
 }
 
-// Controller to log out a user
+/**
+ * logout - Logs out a user.
+ * @param {object} req - No request object needed.
+ * @param {object} res - Express response success message.
+ */
 async function logout(req, res) {
   res.clearCookie('token');
   res.clearCookie('user_');
@@ -63,7 +91,12 @@ async function logout(req, res) {
   console.log("User logged out");
 }
 
-// Get user information
+/**
+ * Controller function to retrieve user information.
+ * @param {object} req - UID of the user to retrieve
+ * @param {object} res - Express response object
+ * @returns {Promise<void>} - Promise object representing the asynchronous operation
+ */
 async function getUserInfo(req, res) {
   try {
     const { uid } = req.params;
@@ -88,12 +121,23 @@ async function getUserInfo(req, res) {
   }
 }
 
+
+/**
+ * Google OAuth2 client instance.
+ * @constant {object}
+ */
 const oAuth2Client = new google.auth.OAuth2(
   '48778211564-of75cphljno4hqfk96pcb41a3saoss0g.apps.googleusercontent.com',
   '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',
   'https://www.edhrrz.pro/pages/dashboard.html'
 );
 
+/**
+ * Controller function to obtain Google OAuth2 tokens.
+ * @param {object} req - code to exchange for tokens
+ * @param {object} res - Express response object
+ * @returns {Promise<void>} - Promise object representing the asynchronous operation
+ */
 async function getToken(req, res) {
   try {
     // console.log("Code received:", req.body);
@@ -113,7 +157,6 @@ async function getToken(req, res) {
     const taskListsResponse = await tasksService.tasklists.list();
     const taskLists = taskListsResponse.data.items;
 
-    // Iterar sobre cada lista de tareas para obtener sus tareas
     const formattedTaskLists = await Promise.all(taskLists.map(async taskList => {
       const tasksResponse = await tasksService.tasks.list({ tasklist: taskList.id, showCompleted: true, showHidden: true});
       const taskItems = tasksResponse.data.items.map(task => ({
@@ -146,7 +189,11 @@ async function getToken(req, res) {
 
 
 
-// update some data in the user, we need type of data to update and the new data
+/**
+ * update - Updates user information.
+ * @param {*} data to update 
+ * @param {*} res - Express response success or error message. 
+ */
 async function update(req, res) {
   try {
     const { uid, type, data } = req.body;
